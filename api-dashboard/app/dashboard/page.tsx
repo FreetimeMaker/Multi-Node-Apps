@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { proxyImageUrl } from "@/lib/proxy-image";
-import Landing from "@/components/Landing";
+import Landing from "@/app/components/Landing";
 import type { User } from "@supabase/supabase-js";
 
 interface HealthData {
