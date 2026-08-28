@@ -29,6 +29,9 @@
       ]
     }
   },
+  "redirects": [
+    { "source": "/api-dashboard/", "destination": "/api-dashboard", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },
     { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard" } },
