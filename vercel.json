@@ -29,7 +29,7 @@
   },
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },
-    { "source": "/dashboard/:path*", "destination": { "service": "api-dashboard" } },
+    { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/login", "destination": { "service": "api-dashboard" } },
     { "source": "/logout", "destination": { "service": "api-dashboard" } },
     { "source": "/shop/:path*", "destination": { "service": "api-dashboard" } },
