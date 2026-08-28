@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import HoverCard from "@/components/hover-card";
 import ThemeToggle from "@/components/theme-toggle";
 
