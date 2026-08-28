@@ -7,8 +7,8 @@
         { "handle": "filesystem" }
       ]
     },
-    "dashboard": {
-      "root": "dashboard/",
+    "api-dashboard": {
+      "root": "api-dashboard/",
       "framework": "nextjs"
     },
     "api": {
@@ -22,7 +22,7 @@
   },
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },
-    { "source": "/dashboard/:path*", "destination": { "service": "dashboard" } },
+    { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
     { "source": "/:path*", "destination": { "service": "root" } }
