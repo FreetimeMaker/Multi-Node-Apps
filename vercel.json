@@ -1,0 +1,26 @@
+{
+  "services": {
+    "root": {
+      "root": "app/",
+      "framework": "nextjs"
+    },
+    "dashboard": {
+      "root": "dashboard/",
+      "framework": "nextjs"
+    },
+    "api": {
+      "root": "api/",
+      "framework": "express"
+    },
+    "geoweather": {
+      "root": "geoweather/",
+      "framework": "nextjs"
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": { "service": "root" } },
+    { "source": "/dashboard/:path*", "destination": { "service": "dashboard" } },
+    { "source": "/api/:path*", "destination": { "service": "api" } },
+    { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } }
+  ]
+}
