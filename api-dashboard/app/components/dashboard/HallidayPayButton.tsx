@@ -4,7 +4,11 @@ import { HallidayPaymentsProvider, useHallidayPayments } from "@halliday-sdk/pay
 
 const HALLIDAY_API_KEY = process.env.NEXT_PUBLIC_HALLIDAY_API_KEY || "";
 const DESTINATION = process.env.NEXT_PUBLIC_SOLANA_RECIPIENT || "";
-const USDC_SOLANA_OUTPUT = "solana:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+const SOLANA_OUTPUTS = [
+  "solana:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "solana:Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+  "solana:So11111111111111111111111111111111111111111",
+];
 
 interface HallidayPayButtonProps {
   amount: number;
@@ -22,7 +26,7 @@ export default function HallidayPayButton({ amount, label, disabled, className, 
   return (
     <HallidayPaymentsProvider
       apiKey={HALLIDAY_API_KEY}
-      deposit={{ outputs: [USDC_SOLANA_OUTPUT], destinationAddress: DESTINATION }}
+      deposit={{ outputs: SOLANA_OUTPUTS, destinationAddress: DESTINATION }}
       customStyles={{
         primaryColor: "#10b981",
         backgroundColor: "#0f172a",
@@ -79,7 +83,6 @@ function HallidayPayButtonInner({ amount, label, disabled, className, children, 
     if (!openDeposit || !isReady) return;
     firedRef.current = false;
     openDeposit({
-      output: USDC_SOLANA_OUTPUT,
       inputFiatValue: { currency: "USD", amount: amount.toFixed(2) },
       locked: true,
     });

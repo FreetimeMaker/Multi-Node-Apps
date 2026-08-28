@@ -441,7 +441,7 @@ export default function WalloraShopPage() {
                           onError={handlePaymentError}
                           className="w-full py-2.5 text-sm font-medium rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Pay ${plan.price} with Card / PayPal
+                          Pay ${plan.price} with Card / Crypto
                         </HallidayPayButton>
                       </div>
                     )}

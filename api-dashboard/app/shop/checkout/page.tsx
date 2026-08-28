@@ -333,7 +333,7 @@ export default function CheckoutPage() {
                 onError={(m) => setError(`Payment failed: ${m}`)}
                 className="w-full mt-2 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Or pay ${checkoutTotal.toFixed(2)} with Card / PayPal
+                Or pay ${checkoutTotal.toFixed(2)} with Card / Crypto
               </HallidayPayButton>
             </div>
           </div>
