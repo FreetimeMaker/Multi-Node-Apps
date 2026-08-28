@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* Dark Mode über .dark Klasse am <html> Element (class-basierte Strategie) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  --text: white;
+  --img-bg: rgba(255, 255, 255, 0.4);
+  --gw-txt: rgba(96, 12, 141, 0.8);
+  --ssmpc-txt: rgba(208, 127, 71, 0.8);
+  --fsdk-txt: rgba(0, 128, 0, 0.8);
+  --button-bg: #111111;
+  --button-text: #eeeeee;
+  --don-txt: rgba(255, 0, 0, 0.8);
+  --shop-txt: rgba(98, 255, 0, 0.8);
+}
+
+html.dark {
+  --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
+  --text: black;
+  --img-bg: rgba(0, 0, 0, 0.4);
+  --gw-txt: rgba(12, 141, 89, 0.8);
+  --ssmpc-txt: rgb(255, 0, 0);
+  --fsdk-txt: rgb(0, 30, 255);
+  --button-bg: #eeeeee;
+  --button-text: #111111;
+  --don-txt: rgb(95 0 0 / 0.8);
+  --shop-txt: rgb(61 156 0 / 0.8);
+}
+
+/* Ladezustand vor Hydration: respektiere Systempräferenz, um Falsches Aufblitzen zu vermeiden */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
+    --text: black;
+    --img-bg: rgba(0, 0, 0, 0.4);
+    --gw-txt: rgba(12, 141, 89, 0.8);
+    --ssmpc-txt: rgb(255, 0, 0);
+    --fsdk-txt: rgb(0, 30, 255);
+    --button-bg: #eeeeee;
+    --button-text: #111111;
+    --don-txt: rgb(95 0 0 / 0.8);
+    --shop-txt: rgb(61 156 0 / 0.8);
+  }
+}
+
+html.light {
+  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  --text: white;
+  --img-bg: rgba(255, 255, 255, 0.4);
+  --gw-txt: rgba(96, 12, 141, 0.8);
+  --ssmpc-txt: rgba(208, 127, 71, 0.8);
+  --fsdk-txt: rgba(0, 128, 0, 0.8);
+  --button-bg: #111111;
+  --button-text: #eeeeee;
+  --don-txt: rgba(255, 0, 0, 0.8);
+  --shop-txt: rgba(98, 255, 0, 0.8);
+}
+
+@theme inline {
+  --color-body-bg: var(--bg);
+  --color-body-text: var(--text);
+  --color-img-bg: var(--img-bg);
+  --color-gw-txt: var(--gw-txt);
+  --color-ssmpc-txt: var(--ssmpc-txt);
+  --color-fsdk-txt: var(--fsdk-txt);
+  --color-btn-bg: var(--button-bg);
+  --color-btn-text: var(--button-text);
+  --color-don-txt: var(--don-txt);
+  --color-shop-txt: var(--shop-txt);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---- Scroll- und Einblend-Animationen (angepasst vom Original) ---- */
+
+@keyframes fade-opacity-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes image-appear {
+  from {
+    filter: saturate(0) contrast(4) brightness(0.1) blur(3px);
+    opacity: 0;
+    scale: 0.95;
+    translate: 0 4rem;
+  }
+}
+
+@keyframes text-appear {
+  from {
+    opacity: 0;
+    translate: 0 8rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade-in {
+    animation: fade-opacity-in 1.75s ease both;
+  }
+  .anim-fade-in-delay-1 {
+    animation: fade-opacity-in 1.75s ease forwards;
+    animation-delay: 1s;
+  }
+  .anim-fade-in-delay-2 {
+    animation: fade-opacity-in 1.75s ease forwards;
+    animation-delay: 2s;
+  }
+  .anim-fade-in-delay-3 {
+    animation: fade-opacity-in 1.75s ease forwards;
+    animation-delay: 3s;
+  }
+  .anim-image-appear {
+    animation: image-appear ease-in both;
+    animation-timeline: view();
+    animation-range: entry 50% 100vh;
+  }
+  .anim-text-appear {
+    animation: text-appear ease-in both;
+    animation-timeline: view();
+    animation-range: 0vh 70vh;
+  }
+  .anim-hover-scale {
+    transition: transform 0.3s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-in,
+  .anim-fade-in-delay-1,
+  .anim-fade-in-delay-2,
+  .anim-fade-in-delay-3,
+  .anim-image-appear,
+  .anim-text-appear {
+    animation: none;
+    opacity: 1;
+  }
+}
