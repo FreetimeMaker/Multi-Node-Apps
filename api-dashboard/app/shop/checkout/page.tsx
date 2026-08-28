@@ -104,7 +104,7 @@ export default function CheckoutPage() {
         currency: cart[0]?.currency || "USD"
       };
 
-      const response = await fetch("/api/proxy/api/v1/wallora/orders", {
+      const response = await fetch("/api/proxy/v1/wallora/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

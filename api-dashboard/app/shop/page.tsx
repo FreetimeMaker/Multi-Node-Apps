@@ -122,7 +122,7 @@ export default function WalloraShopPage() {
       });
 
     // Load GeoWeather plans + current plan
-    fetch("/api/proxy/api/v1/geoweather/subscriptions/plans")
+    fetch("/api/proxy/v1/geoweather/subscriptions/plans")
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data) {
