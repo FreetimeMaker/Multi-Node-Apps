@@ -41,6 +41,7 @@
     { "source": "/shop/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/health", "destination": { "service": "api-dashboard" } },
     { "source": "/auth/callback", "destination": { "service": "api-dashboard" } },
+    { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
     { "source": "/:path*", "destination": { "service": "root" } }
