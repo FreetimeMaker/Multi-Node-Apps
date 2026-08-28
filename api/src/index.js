@@ -26,30 +26,30 @@ app.get('/', (req, res) => {
     res.json({
         message: 'Welcome to the All API!',
         api: {
-            version: '1.4.0',
+            version: '1.5.0',
             'v1 endpoints': {
                 'cross endpoints': {
-                    health: '/api/v1/health',
-                    login: '/api/v1/auth/login',
-                    logout: '/api/v1/auth/logout'
+                    health: '/v1/health',
+                    login: '/v1/auth/login',
+                    logout: '/v1/auth/logout'
                 },
                 'GeoWeather endpoints': {
-                    subscriptions: '/api/v1/geoweather/subscriptions',
-                    plans: '/api/v1/geoweather/subscriptions/plans',
-                    redeem: '/api/v1/geoweather/subscriptions/redeem',
+                    subscriptions: '/v1/geoweather/subscriptions',
+                    plans: '/v1/geoweather/subscriptions/plans',
+                    redeem: '/v1/geoweather/subscriptions/redeem',
                 },
                 'F-Port endpoints': {
-                    apps: '/api/v1/fport/apps'
+                    apps: '/v1/fport/apps'
                 },
                 'Wallora endpoints': {
-                    wallpapers: '/api/v1/wallora/wallpapers'
+                    wallpapers: '/v1/wallora/wallpapers'
                 }
             }
         }
     });
 });
 
-app.use('/api/v1', require('./v1'));
+app.use('/v1', require('./v1'));
 
 // Falls die Datei direkt gestartet wird, Server starten
 if (require.main === module) {
