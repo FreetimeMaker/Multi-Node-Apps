@@ -13,26 +13,26 @@ router.use('/geoweather/subscriptions', geoWeatherSubscriptions);
 router.use('/fport/apps', fportApps);
 router.use('/wallora/wallpapers', walloraWallpapers);
 
-router.get('/', (req, res) => {
+router.get('/v1', (req, res) => {
     res.json({
         message: 'Welcome to the All API v1!',
         version: '1.5.0',
         endpoints: {
             'cross endpoints': {
-                health: '/v1/health',
-                login: '/v1/auth/login',
-                logout: '/v1/auth/logout'
+                health: '/health',
+                login: '/auth/login',
+                logout: '/auth/logout'
             },
             'GeoWeather endpoints': {
-                subscriptions: '/v1/geoweather/subscriptions',
-                plans: '/v1/geoweather/subscriptions/plans',
-                redeem: '/v1/geoweather/subscriptions/redeem',
+                subscriptions: '/geoweather/subscriptions',
+                plans: '/geoweather/subscriptions/plans',
+                redeem: '/geoweather/subscriptions/redeem',
             },
             'F-Port endpoints': {
-                apps: '/v1/fport/apps'
+                apps: '/fport/apps'
             },
             'Wallora endpoints': {
-                wallpapers: '/v1/wallora/wallpapers'
+                wallpapers: '/wallora/wallpapers'
             }
         }
     });

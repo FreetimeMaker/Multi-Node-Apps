@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.json({
         message: 'Welcome to the All API!',
         api: {
