@@ -81,16 +81,16 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ThemeToggle />
-      <h1 className="anim-fade-in p-4 text-center">My Portfolio</h1>
-      <p className="anim-fade-in-delay-1 p-4 text-center text-xl">
+      <h1 className="anim-fade-in p-4 text-center" style={{ opacity: 0 }}>My Portfolio</h1>
+      <p className="anim-fade-in-delay-1 p-4 text-center text-xl" style={{ opacity: 0 }}>
         Hello, I&apos;m Freetime Maker and I like to make Web and Android Apps.
       </p>
-      <h1 className="anim-fade-in-delay-2 p-4 text-center">
+      <h1 className="anim-fade-in-delay-2 p-4 text-center" style={{ opacity: 0 }}>
         Here are Technologies I worked with listed.
       </h1>
 
       {/* Technologies */}
-      <div className="anim-fade-in-delay-3 p-4">
+      <div className="anim-fade-in-delay-3 p-4" style={{ opacity: 0 }}>
         <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
           {languagesRow1.map((l) => (
             <HoverCard key={l.label} {...l} size={180} variant="lang" />
