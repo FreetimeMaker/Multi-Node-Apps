@@ -11,6 +11,18 @@
       "root": "api-dashboard/",
       "framework": "nextjs",
       "routes": [
+        {
+          "source": "^/api-dashboard$",
+          "transforms": [
+            { "type": "request.path", "op": "set", "args": "/" }
+          ]
+        },
+        {
+          "source": "^/api-dashboard/(.*)$",
+          "transforms": [
+            { "type": "request.path", "op": "set", "args": "/$1" }
+          ]
+        },
         { "source": "/dashboard/_next/:path*", "destination": "/_next/:path*" },
         { "handle": "filesystem" }
       ]
@@ -29,7 +41,7 @@
   },
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },
-    { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard", "path": "/:path*" } },
+    { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/dashboard/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/login", "destination": { "service": "api-dashboard" } },
     { "source": "/logout", "destination": { "service": "api-dashboard" } },
