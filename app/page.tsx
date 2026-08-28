@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const languagesRow1 = [
-  { src: "/images/java.png", alt: "Java Logo", label: "Java" },
+  { src: "https://free-time.me/images/java.png", alt: "Java Logo", label: "Java" },
   { src: "/images/html.png", alt: "HTML Logo", label: "HTML 5" },
   { src: "/images/cs.png", alt: "C# Logo", label: "C#" },
   { src: "/images/css.png", alt: "CSS Logo", label: "CSS" },
