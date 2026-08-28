@@ -1,7 +1,7 @@
 {
   "services": {
     "root": {
-      "root": "/app",
+      "root": ".",
       "framework": "nextjs"
     },
     "dashboard": {
@@ -21,6 +21,7 @@
     { "source": "/", "destination": { "service": "root" } },
     { "source": "/dashboard/:path*", "destination": { "service": "dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
-    { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } }
+    { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
+    { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
