@@ -1,0 +1,23 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "All about me",
+  "keywords": [
+    "Portfolio"
+  ],
+  "homepage": "https://github.com/FreetimeMaker/Website#readme",
+  "bugs": {
+    "url": "https://github.com/FreetimeMaker/Website/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FreetimeMaker/Website.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Freetime Maker",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
