@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/dashboard"];
 const authRoutes = ["/login", "/logout"];
 
 export async function proxy(request: NextRequest) {
@@ -22,12 +21,6 @@ export async function proxy(request: NextRequest) {
 
     if (pathname.includes("/_next/") || pathname.includes("favicon")) {
       return NextResponse.next();
-    }
-
-    if (!isAuthenticated && protectedRoutes.some((route) => pathname.startsWith(route))) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/login";
-      return NextResponse.redirect(url);
     }
 
     if (isAuthenticated && authRoutes.includes(pathname)) {
