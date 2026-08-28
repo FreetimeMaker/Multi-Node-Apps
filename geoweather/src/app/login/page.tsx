@@ -45,7 +45,7 @@ export default function LoginPage() {
     setErr("");
     const { error } = await sb.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: window.location.origin },
+      options: { redirectTo: `${window.location.origin}/geoweather` },
     });
     if (error) {
       setErr(error.message);

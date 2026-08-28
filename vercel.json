@@ -9,7 +9,11 @@
     },
     "api-dashboard": {
       "root": "api-dashboard/",
-      "framework": "nextjs"
+      "framework": "nextjs",
+      "routes": [
+        { "source": "/dashboard/_next/:path*", "destination": "/_next/:path*" },
+        { "handle": "filesystem" }
+      ]
     },
     "api": {
       "root": "api/",
@@ -17,7 +21,10 @@
     },
     "geoweather": {
       "root": "geoweather/",
-      "framework": "nextjs"
+      "framework": "nextjs",
+      "routes": [
+        { "handle": "filesystem" }
+      ]
     }
   },
   "rewrites": [
