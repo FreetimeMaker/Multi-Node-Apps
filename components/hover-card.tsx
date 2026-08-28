@@ -7,33 +7,43 @@ interface HoverCardProps {
   alt: string;
   label: string;
   size: number;
-  link?: string;
+  variant?: "lang" | "project" | "geow" | "ssmpc";
+  className?: string;
 }
 
 /**
  * Ein runder Logo-Karten-Baustein wie im Original:
  * Beim Hover wird das Bild skaliert und der Beschriftungstext eingeblendet.
+ * Die Bilder sind anfangs versteckt sichtbar und erscheinen erst beim Hover.
  */
-export default function HoverCard({ src, alt, label, size, link }: HoverCardProps) {
-  const img = (
-    <Image
-      src={src}
-      alt={alt}
-      width={size}
-      height={size}
-      className="block h-auto max-w-[250px] rounded-full bg-img-bg object-contain p-2 transition-transform duration-300 group-hover:scale-110"
-    />
-  );
+export default function HoverCard({
+  src,
+  alt,
+  label,
+  size,
+  variant = "lang",
+  className,
+}: HoverCardProps) {
+  const picClass =
+    variant === "lang"
+      ? "langpic"
+      : variant === "project"
+        ? "projectpic"
+        : variant === "geow"
+          ? "geowactpic"
+          : "ssmpcactpic";
 
   return (
-    <div className="group relative flex flex-col items-center text-center">
-      {link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          {img}
-        </a>
-      ) : (
-        img
-      )}
+    <div
+      className={`lang-card group relative m-2.5 flex flex-col items-center text-center max-[480px]:m-0 ${className ?? ""}`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={size}
+        height={size}
+        className={`${picClass} object-contain p-2`}
+      />
       <h2 className="mt-1 text-center text-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         {label}
       </h2>

@@ -58,12 +58,12 @@ export default function HomePage() {
       <div className="anim-fade-in-delay-3 p-4">
         <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
           {languagesRow1.map((l) => (
-            <HoverCard key={l.label} {...l} size={180} />
+            <HoverCard key={l.label} {...l} size={180} variant="lang" />
           ))}
         </div>
         <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
           {languagesRow2.map((l) => (
-            <HoverCard key={l.label} {...l} size={180} />
+            <HoverCard key={l.label} {...l} size={180} variant="lang" />
           ))}
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function HomePage() {
       <div className="anim-image-appear p-4">
         <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
           {projects.map((p) => (
-            <HoverCard key={p.label} {...p} size={250} />
+            <HoverCard key={p.label} {...p} size={250} variant="project" />
           ))}
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function HomePage() {
           <h1 className="my-10 text-center">Here you can see GeoWeather in Action.</h1>
           <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
             {geoWeatherPics.map((p) => (
-              <HoverCard key={p.label} {...p} size={200} />
+              <HoverCard key={p.label} {...p} size={200} variant="geow" />
             ))}
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function HomePage() {
           <h1 className="my-10 text-center">Here you can see SuperSMP Companion in Action.</h1>
           <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
             {ssmpcPics.map((p) => (
-              <HoverCard key={p.label} {...p} size={250} />
+              <HoverCard key={p.label} {...p} size={250} variant="ssmpc" />
             ))}
           </div>
         </div>
