@@ -49,6 +49,10 @@ app.get('/api', (req, res) => {
     });
 });
 
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
 app.use('/v1', require('./v1'));
 
 // Falls die Datei direkt gestartet wird, Server starten

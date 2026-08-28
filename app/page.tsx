@@ -193,7 +193,7 @@ export default function HomePage() {
               Look at the Weather anywhere in the Web without needing the App.
             </h2>
           </a>
-          <a className="text-dashboard-txt no-underline" href="https://free-time.me/api-dashboard" title="Go to the Dashboard to control everything.">
+          <a className="text-dashboard-txt no-underline" href="https://free-time.me/dashboard" title="Go to the Dashboard to control everything.">
             <h2>
               Go to the Dashboard to control everything.
             </h2>
