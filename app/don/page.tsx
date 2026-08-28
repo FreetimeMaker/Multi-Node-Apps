@@ -16,6 +16,17 @@ export const metadata: Metadata = {
     url: "https://free-time.me/don",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/app/public/don-images/Icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/app/public/don-images/Icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/app/public/don-images/Icons/favicon.ico", type: "image/x-icon" },
+      { url: "/app/public/don-images/Icons/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/app/public/don-images/Icons/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/app/public/don-images/Icons/apple-touch-icon.png",
+  },
+  manifest: "/app/public/don-images/Icons/site.webmanifest",
 };
 
 interface DonationItem {
@@ -28,16 +39,17 @@ interface DonationItem {
 }
 
 const items: DonationItem[] = [
-  { img: "/don-images/btc.png", alt: "Bitcoin", title: "Donate Bitcoin", desc: "Anything", href: "https://ncwallet.net/pay/60misly", button: "Donate Bitcoin" },
-  { img: "/don-images/eth.png", alt: "Ethereum", title: "Donate Ethereum", desc: "Anything", href: "https://ncwallet.net/pay/86fremd", button: "Donate Ethereum" },
-  { img: "/don-images/usdt.png", alt: "Tether/USDT", title: "Donate Tether/USDT", desc: "Anything", href: "https://ncwallet.net/pay/19tacit", button: "Donate Tether/USDT" },
-  { img: "/don-images/usdc.png", alt: "USDC", title: "Donate USDC", desc: "Anything", href: "https://ncwallet.net/pay/15snog", button: "Donate USDC" },
-  { img: "/don-images/shib.png", alt: "Shib", title: "Donate Shib", desc: "Anything", href: "https://ncwallet.net/pay/18spile", button: "Donate Shib" },
-  { img: "/don-images/tron.png", alt: "Tron", title: "Donate Tron", desc: "Anything", href: "https://ncwallet.net/pay/15gown", button: "Donate Tron" },
-  { img: "/don-images/ltc.png", alt: "Litecoin", title: "Donate Litecoin", desc: "Anything", href: "https://ncwallet.net/pay/77pudgy", button: "Donate Litecoin" },
-  { img: "/don-images/doge.png", alt: "Doge", title: "Donate Doge", desc: "Anything", href: "https://ncwallet.net/pay/30allie", button: "Donate Doge" },
-  { img: "/don-images/oxa.png", alt: "OxaPay Logo", title: "Donate via OxaPay", desc: "Anything", href: "https://pay.oxapay.com/13038067", button: "Donate via OxaPay" },
-  { img: "/don-images/gh.png", alt: "GitHub Logo", title: "Donate via GitHub Sponsors", desc: "Anything", href: "https://github.com/sponsors/FreetimeMaker", button: "Donate via GitHub Sponsors" },
+  { img: "/app/public/don-images/btc.png", alt: "Bitcoin", title: "Donate Bitcoin", desc: "Anything", href: "https://ncwallet.net/pay/60misly", button: "Donate Bitcoin" },
+  { img: "/app/public/don-images/eth.png", alt: "Ethereum", title: "Donate Ethereum", desc: "Anything", href: "https://ncwallet.net/pay/86fremd", button: "Donate Ethereum" },
+  { img: "/app/public/don-images/usdt.png", alt: "Tether/USDT", title: "Donate Tether/USDT", desc: "Anything", href: "https://ncwallet.net/pay/19tacit", button: "Donate Tether/USDT" },
+  { img: "/app/public/don-images/usdc.png", alt: "USDC", title: "Donate USDC", desc: "Anything", href: "https://ncwallet.net/pay/15snog", button: "Donate USDC" },
+  { img: "/app/public/don-images/shib.png", alt: "Shib", title: "Donate Shib", desc: "Anything", href: "https://ncwallet.net/pay/18spile", button: "Donate Shib" },
+  { img: "/app/public/don-images/tron.png", alt: "Tron", title: "Donate Tron", desc: "Anything", href: "https://ncwallet.net/pay/15gown", button: "Donate Tron" },
+  { img: "/app/public/don-images/ltc.png", alt: "Litecoin", title: "Donate Litecoin", desc: "Anything", href: "https://ncwallet.net/pay/77pudgy", button: "Donate Litecoin" },
+  { img: "/app/public/don-images/doge.png", alt: "Doge", title: "Donate Doge", desc: "Anything", href: "https://ncwallet.net/pay/30allie", button: "Donate Doge" },
+  { img: "/app/public/don-images/oxa.png", alt: "OxaPay Logo", title: "Donate via OxaPay", desc: "Anything", href: "https://pay.oxapay.com/13038067", button: "Donate via OxaPay" },
+  { img: "/app/public/don-images/gh.png", alt: "GitHub Logo", title: "Donate via GitHub Sponsors", desc: "Anything", href: "https://github.com/sponsors/FreetimeMaker", button: "Donate via GitHub Sponsors" },
+  { img: "/app/public/don-images/back.png", alt: "Go Back to the Mainsite", title: "Go Back to the Mainsite", desc: "Go Back", href: "..", button: "Go Back to the Mainsite"},
 ];
 
 export default function DonatePage() {
@@ -56,8 +68,8 @@ export default function DonatePage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.img} alt={item.alt} width={150} className="mx-auto" />
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+              <h3 className="text-black">{item.title}</h3>
+              <p className="text-black">{item.desc}</p>
               <a href={item.href} target="_blank" rel="noopener noreferrer">
                 <button className="cursor-pointer rounded-[5px] border-none bg-[#007bff] px-4 py-2 text-white">
                   {item.button}
@@ -65,22 +77,10 @@ export default function DonatePage() {
               </a>
             </div>
           ))}
-
-          {/* Go Back */}
-          <div className="w-[200px] rounded-[10px] bg-white p-4 text-center shadow-[0_2px_5px_rgba(0,0,0,0.1)]">
-            <p className="text-center text-6xl">←</p>
-            <h3>Go Back</h3>
-            <p>Go Back to the Main Page</p>
-            <Link href="/">
-              <button className="cursor-pointer rounded-[5px] border-none bg-[#007bff] px-4 py-2 text-white">
-                Go Back
-              </button>
-            </Link>
-          </div>
         </section>
       </main>
 
-      <footer className="py-4 text-center">&copy;  2025 Freetime Maker</footer>
+      <footer className="py-4 text-center">&copy;  2026 Freetime Maker</footer>
     </div>
   );
 }
