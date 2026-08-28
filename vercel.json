@@ -1,7 +1,7 @@
 {
   "services": {
     "root": {
-      "root": "app/",
+      "root": ".",
       "framework": "nextjs"
     },
     "dashboard": {
