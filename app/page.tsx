@@ -29,37 +29,37 @@ export const metadata: Metadata = {
 };
 
 const languagesRow1 = [
-  { src: "/app/public/images/java.png", alt: "Java Logo", label: "Java" },
-  { src: "/app/public/images/html.png", alt: "HTML Logo", label: "HTML 5" },
-  { src: "/app/public/images/cs.png", alt: "C# Logo", label: "C#" },
-  { src: "/app/public/images/css.png", alt: "CSS Logo", label: "CSS" },
+  { src: "/images/java.png", alt: "Java Logo", label: "Java" },
+  { src: "/images/html.png", alt: "HTML Logo", label: "HTML 5" },
+  { src: "/images/cs.png", alt: "C# Logo", label: "C#" },
+  { src: "/images/css.png", alt: "CSS Logo", label: "CSS" },
 ];
 
 const languagesRow2 = [
-  { src: "/app/public/images/gh.png", alt: "GitHub Logo", label: "GitHub" },
-  { src: "/app/public/images/git.png", alt: "Git Logo", label: "Git" },
-  { src: "/app/public/images/gitlab.png", alt: "GitLab Logo", label: "GitLab" },
-  { src: "/app/public/images/kt.png", alt: "Kotlin Logo", label: "Kotlin" },
-  { src: "/app/public/images/linux.png", alt: "Linux Logo", label: "Linux" },
+  { src: "/images/gh.png", alt: "GitHub Logo", label: "GitHub" },
+  { src: "/images/git.png", alt: "Git Logo", label: "Git" },
+  { src: "/images/gitlab.png", alt: "GitLab Logo", label: "GitLab" },
+  { src: "/images/kt.png", alt: "Kotlin Logo", label: "Kotlin" },
+  { src: "/images/linux.png", alt: "Linux Logo", label: "Linux" },
 ];
 
 const projects = [
-  { src: "/app/public/images/geoweather.png", alt: "GeoWeather Logo", label: "GeoWeather" },
-  { src: "/app/public/images/ssmpc.png", alt: "SuperSMP Companion Logo", label: "SuperSMP Companion" },
-  { src: "/app/public/images/freetimesdk.png", alt: "FreetimeSDK Logo", label: "FreetimeSDK" },
+  { src: "/images/geoweather.png", alt: "GeoWeather Logo", label: "GeoWeather" },
+  { src: "/images/ssmpc.png", alt: "SuperSMP Companion Logo", label: "SuperSMP Companion" },
+  { src: "/images/freetimesdk.png", alt: "FreetimeSDK Logo", label: "FreetimeSDK" },
 ];
 
 const geoWeatherPics = [
-  { src: "/app/public/images/geoweatheraction1.png", alt: "First Picture of GeoWeather in Action", label: "GeoWeather Homepage" },
-  { src: "/app/public/images/geoweatheraction2.png", alt: "Second Picture of GeoWeather in Action", label: "GeoWeather Searchpage" },
-  { src: "/app/public/images/geoweatheraction3.png", alt: "Third Picture of GeoWeather in Action", label: "GeoWeather Weatherpage 1" },
-  { src: "/app/public/images/geoweatheraction4.png", alt: "Fourth Picture of GeoWeather in Action", label: "GeoWeather Weatherpage 2" },
+  { src: "/images/geoweatheraction1.png", alt: "First Picture of GeoWeather in Action", label: "GeoWeather Homepage" },
+  { src: "/images/geoweatheraction2.png", alt: "Second Picture of GeoWeather in Action", label: "GeoWeather Searchpage" },
+  { src: "/images/geoweatheraction3.png", alt: "Third Picture of GeoWeather in Action", label: "GeoWeather Weatherpage 1" },
+  { src: "/images/geoweatheraction4.png", alt: "Fourth Picture of GeoWeather in Action", label: "GeoWeather Weatherpage 2" },
 ];
 
 const ssmpcPics = [
-  { src: "/app/public/images/ssmpcaction1.png", alt: "First Picture of SuperSMP Companion in Action", label: "SuperSMP Companion Shoppage with Cookies Text" },
-  { src: "/app/public/images/ssmpcaction2.png", alt: "Second Picture of SuperSMP Companion in Action", label: "SuperSMP Companion Shopspage without Cookies Text" },
-  { src: "/app/public/images/ssmpcaction3.png", alt: "Third Picture of SuperSMP Companion in Action", label: "SuperSMP Mappage" },
+  { src: "/images/ssmpcaction1.png", alt: "First Picture of SuperSMP Companion in Action", label: "SuperSMP Companion Shoppage with Cookies Text" },
+  { src: "/images/ssmpcaction2.png", alt: "Second Picture of SuperSMP Companion in Action", label: "SuperSMP Companion Shopspage without Cookies Text" },
+  { src: "/images/ssmpcaction3.png", alt: "Third Picture of SuperSMP Companion in Action", label: "SuperSMP Mappage" },
 ];
 
 export default function HomePage() {
@@ -189,12 +189,12 @@ export default function HomePage() {
               Donate to me.
             </h2>
           </a>
-          <a className="text-geoweather-next-txt no underline" href="https://free-time.me/geoweather" title="Look at the Weather anywhere in the Web without needing the App.">
+          <a className="text-geoweather-next-txt no-underline" href="https://free-time.me/geoweather" title="Look at the Weather anywhere in the Web without needing the App.">
             <h2>
               Look at the Weather anywhere in the Web without needing the App.
             </h2>
           </a>
-          <a className="text-dashboard-txt no underline" href="https://free-time.me/dashboard" title="Go to the Dashboard to control everything.">
+          <a className="text-dashboard-txt no-underline" href="https://free-time.me/dashboard" title="Go to the Dashboard to control everything.">
             <h2>
               Go to the Dashboard to control everything.
             </h2>

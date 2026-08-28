@@ -75,15 +75,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/app/public/Icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/app/public/Icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/app/public/Icons/favicon.ico", type: "image/x-icon" },
-      { url: "/app/public/Icons/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
-      { url: "/app/public/Icons/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
+      { url: "/Icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/Icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/Icons/favicon.ico", type: "image/x-icon" },
+      { url: "/Icons/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/Icons/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: "/app/public/Icons/apple-touch-icon.png",
+    apple: "/Icons/apple-touch-icon.png",
   },
-  manifest: "/app/public/Icons/site.webmanifest",
+  manifest: "/Icons/site.webmanifest",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
