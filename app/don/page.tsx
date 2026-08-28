@@ -35,21 +35,22 @@ interface DonationItem {
   title: string;
   desc: string;
   href: string;
+  target: string;
   button: string;
 }
 
 const items: DonationItem[] = [
-  { img: "/btc.png", alt: "Bitcoin", title: "Donate Bitcoin", desc: "Anything", href: "https://ncwallet.net/pay/60misly", button: "Donate Bitcoin" },
-  { img: "/eth.png", alt: "Ethereum", title: "Donate Ethereum", desc: "Anything", href: "https://ncwallet.net/pay/86fremd", button: "Donate Ethereum" },
-  { img: "/usdt.png", alt: "Tether/USDT", title: "Donate Tether/USDT", desc: "Anything", href: "https://ncwallet.net/pay/19tacit", button: "Donate Tether/USDT" },
-  { img: "/usdc.png", alt: "USDC", title: "Donate USDC", desc: "Anything", href: "https://ncwallet.net/pay/15snog", button: "Donate USDC" },
-  { img: "/shib.png", alt: "Shib", title: "Donate Shib", desc: "Anything", href: "https://ncwallet.net/pay/18spile", button: "Donate Shib" },
-  { img: "/tron.png", alt: "Tron", title: "Donate Tron", desc: "Anything", href: "https://ncwallet.net/pay/15gown", button: "Donate Tron" },
-  { img: "/ltc.png", alt: "Litecoin", title: "Donate Litecoin", desc: "Anything", href: "https://ncwallet.net/pay/77pudgy", button: "Donate Litecoin" },
-  { img: "/doge.png", alt: "Doge", title: "Donate Doge", desc: "Anything", href: "https://ncwallet.net/pay/30allie", button: "Donate Doge" },
-  { img: "/oxa.png", alt: "OxaPay Logo", title: "Donate via OxaPay", desc: "Anything", href: "https://pay.oxapay.com/13038067", button: "Donate via OxaPay" },
-  { img: "/gh.png", alt: "GitHub Logo", title: "Donate via GitHub Sponsors", desc: "Anything", href: "https://github.com/sponsors/FreetimeMaker", button: "Donate via GitHub Sponsors" },
-  { img: "/back.png", alt: "Go Back to the Mainsite", title: "Go Back to the Mainsite", desc: "Go Back", href: "..", button: "Go Back to the Mainsite"},
+  { img: "/btc.png", alt: "Bitcoin", title: "Donate Bitcoin", desc: "Anything", href: "https://ncwallet.net/pay/60misly", target: "_blank", button: "Donate Bitcoin" },
+  { img: "/eth.png", alt: "Ethereum", title: "Donate Ethereum", desc: "Anything", href: "https://ncwallet.net/pay/86fremd", target: "_blank", button: "Donate Ethereum" },
+  { img: "/usdt.png", alt: "Tether/USDT", title: "Donate Tether/USDT", desc: "Anything", href: "https://ncwallet.net/pay/19tacit", target: "_blank", button: "Donate Tether/USDT" },
+  { img: "/usdc.png", alt: "USDC", title: "Donate USDC", desc: "Anything", href: "https://ncwallet.net/pay/15snog", target: "_blank", button: "Donate USDC" },
+  { img: "/shib.png", alt: "Shib", title: "Donate Shib", desc: "Anything", href: "https://ncwallet.net/pay/18spile", target: "_blank", button: "Donate Shib" },
+  { img: "/tron.png", alt: "Tron", title: "Donate Tron", desc: "Anything", href: "https://ncwallet.net/pay/15gown", target: "_blank", button: "Donate Tron" },
+  { img: "/ltc.png", alt: "Litecoin", title: "Donate Litecoin", desc: "Anything", href: "https://ncwallet.net/pay/77pudgy", target: "_blank", button: "Donate Litecoin" },
+  { img: "/doge.png", alt: "Doge", title: "Donate Doge", desc: "Anything", href: "https://ncwallet.net/pay/30allie", target: "_blank", button: "Donate Doge" },
+  { img: "/oxa.png", alt: "OxaPay Logo", title: "Donate via OxaPay", desc: "Anything", href: "https://pay.oxapay.com/13038067", target: "_blank", button: "Donate via OxaPay" },
+  { img: "/gh.png", alt: "GitHub Logo", title: "Donate via GitHub Sponsors", desc: "Anything", href: "https://github.com/sponsors/FreetimeMaker", target: "_blank", button: "Donate via GitHub Sponsors" },
+  { img: "/back.png", alt: "Go Back to the Mainsite", title: "Go Back to the Mainsite", desc: "Go Back", href: "..", target: "_self", button: "Go Back to the Mainsite"},
 ];
 
 export default function DonatePage() {
@@ -70,7 +71,7 @@ export default function DonatePage() {
               <img src={item.img} alt={item.alt} width={150} className="mx-auto" />
               <h3 className="text-black">{item.title}</h3>
               <p className="text-black">{item.desc}</p>
-              <a href={item.href} target="_blank" rel="noopener noreferrer">
+              <a href={item.href} target={item.target} rel="noopener noreferrer">
                 <button className="cursor-pointer rounded-[5px] border-none bg-[#007bff] px-4 py-2 text-white">
                   {item.button}
                 </button>
