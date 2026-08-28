@@ -2,7 +2,10 @@
   "services": {
     "root": {
       "root": ".",
-      "framework": "nextjs"
+      "framework": "nextjs",
+      "routes": [
+        { "handle": "filesystem" }
+      ]
     },
     "dashboard": {
       "root": "dashboard/",
