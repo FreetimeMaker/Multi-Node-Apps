@@ -28,18 +28,6 @@ export const metadata: Metadata = {
     title: "All API — Freetime Maker",
     description: "Manage GeoWeather subscriptions and API access from one dashboard. Pay with Solana.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "All API — Freetime Maker",
-    description: "Manage GeoWeather subscriptions and API access from one dashboard. Pay with Solana.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  verification: {
-    google: "IMtNCgqkckGhncM3VQd7zLDqqLYF6jVcX9PFHNDrPRs",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -48,18 +36,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-K0VZ03Y0TX"
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-K0VZ03Y0TX');
-        `}
-      </Script>
       <body className="min-h-full flex flex-col bg-slate-950">
         <header className="w-full bg-slate-900 border-b border-slate-800 py-3 px-6">
           <AuthNav />
