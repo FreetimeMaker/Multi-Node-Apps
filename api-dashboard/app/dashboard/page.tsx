@@ -56,7 +56,7 @@ export default function DashboardPage() {
     Promise.all([
       supabase.auth.getUser(),
       fetch("/api/health").then(r => r.json()),
-      fetch("/api/proxy/api/v1/wallora/wallpapers").then(r => r.ok ? r.json() : null),
+      fetch("/api/proxy/v1/wallora/wallpapers").then(r => r.ok ? r.json() : null),
     ]).then(([authRes, healthRes, wallpapersRes]) => {
       if (!authRes.data.user) {
         setUser(null);

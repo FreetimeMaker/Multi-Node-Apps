@@ -13,7 +13,7 @@ router.use('/geoweather/subscriptions', geoWeatherSubscriptions);
 router.use('/fport/apps', fportApps);
 router.use('/wallora/wallpapers', walloraWallpapers);
 
-router.get('/v1', (req, res) => {
+router.get('/', (req, res) => {
     res.json({
         message: 'Welcome to the All API v1!',
         version: '1.5.0',

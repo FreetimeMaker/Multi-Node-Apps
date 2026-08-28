@@ -98,7 +98,7 @@ export default function WalloraShopPage() {
     setPurchasedIds(purchasedIdsSet);
 
     // Load wallpapers from Wallora endpoint
-    fetch("/api/proxy/api/v1/wallora/wallpapers")
+    fetch("/api/proxy/v1/wallora/wallpapers")
       .then((res) => res.json())
       .then((data) => {
         const productsData = Array.isArray(data) ? data : data.wallpapers || [];
