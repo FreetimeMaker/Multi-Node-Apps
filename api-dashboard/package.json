@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@halliday-sdk/payments": "^4.2.0",
     "@solana/kit": "^6.10.0",
     "@solana/pay": "^1.0.0-beta.14",
     "@supabase/ssr": "^0.12.5",

@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import { proxyImageUrl } from "@/lib/proxy-image";
 import { validatePromo, normalizeCode } from "@/lib/promo-codes";
 import SolanaPayModal from "../components/dashboard/SolanaPayModal";
 import Spinner from "../components/Spinner";
+
+const HallidayPayButton = dynamic(() => import("../components/dashboard/HallidayPayButton"), { ssr: false });
 
 interface WalloraProduct {
   id: string;
@@ -420,16 +423,27 @@ export default function WalloraShopPage() {
                         {planTier[plan.id] === currentTier ? "Current Plan" : "Included in your plan"}
                       </button>
                     ) : (
-                      <button
-                        onClick={() => handlePlanPay(plan)}
-                        disabled={showPayModal}
-                        className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#9945FF] text-white hover:bg-[#8833EE] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-                      >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M2.5 5.5L8 2L13.5 5.5V10.5L8 14L2.5 10.5V5.5Z" fill="white" />
-                        </svg>
-                        Pay ${plan.price}
-                      </button>
+                      <div className="flex flex-col gap-2">
+                        <button
+                          onClick={() => handlePlanPay(plan)}
+                          disabled={showPayModal}
+                          className="w-full py-2.5 text-sm font-medium rounded-lg bg-[#9945FF] text-white hover:bg-[#8833EE] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M2.5 5.5L8 2L13.5 5.5V10.5L8 14L2.5 10.5V5.5Z" fill="white" />
+                          </svg>
+                          Pay ${plan.price} with Solana
+                        </button>
+                        <HallidayPayButton
+                          amount={plan.price}
+                          label={`GeoWeather ${plan.name}`}
+                          onSuccess={handlePaymentSuccess}
+                          onError={handlePaymentError}
+                          className="w-full py-2.5 text-sm font-medium rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Pay ${plan.price} with Card / PayPal
+                        </HallidayPayButton>
+                      </div>
                     )}
                   </div>
                 </div>
