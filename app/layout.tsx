@@ -1,22 +1,78 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Hello, I'm Freetime Maker and I like to make Web and Android Apps.",
+  metadataBase: new URL("https://free-time.me"),
+  title: {
+    default: "My Portfolio | Freetime Maker",
+    template: "%s | Freetime Maker",
+  },
+  description:
+    "Portfolio of Freetime Maker — a developer creating Web and Android apps and open-source projects like GeoWeather, SuperSMP Companion and FreetimeSDK.",
+  applicationName: "Freetime Maker Portfolio",
+  authors: [{ name: "Freetime Maker", url: "https://github.com/FreetimeMaker" }],
+  creator: "Freetime Maker",
+  publisher: "Freetime Maker",
+  generator: "Next.js",
+  keywords: [
+    "Freetime Maker",
+    "portfolio",
+    "web developer",
+    "android developer",
+    "open source",
+    "GeoWeather",
+    "SuperSMP Companion",
+    "FreetimeSDK",
+    "Java",
+    "Kotlin",
+    "HTML",
+    "CSS",
+    "C#",
+  ],
+  category: "technology",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://free-time.me",
+    siteName: "Freetime Maker",
+    title: "My Portfolio | Freetime Maker",
+    description:
+      "Portfolio of Freetime Maker — Web and Android developer behind GeoWeather, SuperSMP Companion and FreetimeSDK.",
+    images: [
+      {
+        url: "/images/geoweather.png",
+        width: 256,
+        height: 256,
+        alt: "Freetime Maker Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "My Portfolio | Freetime Maker",
+    description:
+      "Portfolio of Freetime Maker — Web and Android developer behind GeoWeather, SuperSMP Companion and FreetimeSDK.",
+    images: ["/images/geoweather.png"],
+  },
+  verification: {
+    google: "G-E05VRR273J",
+  },
   icons: {
     icon: [
       { url: "/Icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -33,8 +89,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="de"
+      className="h-full antialiased"
       suppressHydrationWarning
     >
       <body className="min-h-full">

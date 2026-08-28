@@ -5,7 +5,27 @@ import ThemeToggle from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   title: "My Portfolio",
-  description: "Hello, I'm Freetime Maker and I like to make Web and Android Apps.",
+  description:
+    "Hello, I'm Freetime Maker and I like to make Web and Android Apps. Explore my portfolio with projects like GeoWeather, SuperSMP Companion and FreetimeSDK.",
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "Freetime Maker",
+    "portfolio",
+    "web developer",
+    "android developer",
+    "GeoWeather",
+    "SuperSMP Companion",
+    "FreetimeSDK",
+  ],
+  openGraph: {
+    title: "My Portfolio | Freetime Maker",
+    description:
+      "Hello, I'm Freetime Maker and I like to make Web and Android Apps.",
+    url: "https://free-time.me/",
+    type: "website",
+  },
 };
 
 const languagesRow1 = [
@@ -43,8 +63,23 @@ const ssmpcPics = [
 ];
 
 export default function HomePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Freetime Maker",
+    url: "https://free-time.me/",
+    jobTitle: "Web and Android Developer",
+    description:
+      "Freetime Maker creates Web and Android Apps and open-source projects like GeoWeather, SuperSMP Companion and FreetimeSDK.",
+    sameAs: ["https://github.com/FreetimeMaker"],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ThemeToggle />
       <h1 className="anim-fade-in p-4 text-center">My Portfolio</h1>
       <p className="anim-fade-in-delay-1 p-4 text-center text-xl">
@@ -88,7 +123,7 @@ export default function HomePage() {
         {/* GeoWeather in Action */}
         <div className="anim-image-appear flex flex-col items-center">
           <h1 className="my-10 text-center">Here you can see GeoWeather in Action.</h1>
-          <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
+          <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col md:items-start">
             {geoWeatherPics.map((p) => (
               <HoverCard key={p.label} {...p} size={200} variant="geow" />
             ))}
@@ -98,7 +133,7 @@ export default function HomePage() {
         {/* SuperSMP Companion in Action */}
         <div className="anim-image-appear flex flex-col items-center">
           <h1 className="my-10 text-center">Here you can see SuperSMP Companion in Action.</h1>
-          <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col">
+          <div className="flex flex-wrap items-center justify-center gap-5 max-md:flex-col md:items-start">
             {ssmpcPics.map((p) => (
               <HoverCard key={p.label} {...p} size={250} variant="ssmpc" />
             ))}
@@ -106,10 +141,10 @@ export default function HomePage() {
         </div>
 
         {/* Project links */}
-        <h1 className="anim-text-appear p-4 text-center">
+        <h1 className="text-center">
           Here are URL&apos;s to the Projects I&apos;ve made.
         </h1>
-        <div className="anim-text-appear flex flex-wrap items-center justify-center gap-5">
+        <div className="flex flex-wrap items-center justify-center gap-5">
           <h2>
             <a
               className="text-gw-txt no-underline"
@@ -146,21 +181,17 @@ export default function HomePage() {
         </div>
 
         {/* Other websites */}
-        <h1 className="anim-text-appear p-4 text-center">Visit my other Websites</h1>
+        <h1 className="text-center">Visit my other Websites</h1>
         <div className="flex flex-col items-center justify-center gap-5">
-          <h2>
-            <Link className="text-don-txt no-underline" href="/don" title="Donate to me.">
-              Donate to me.
-            </Link>
-          </h2>
-          <h2>
-            <Link className="text-shop-txt no-underline" href="/fms" title="Visit my Shop.">
-              Visit my Shop.
-            </Link>
-          </h2>
+          <a
+          className="text-don-txt no-underline" href="/don" title="Donate to me.">
+              <h2>
+                Donate to me.
+              </h2>
+            </a>
         </div>
 
-        <footer className="mt-6 text-center">&copy;  2026 FreetimeMaker</footer>
+        <footer className="mt-[25px] text-center">&copy;  2026 FreetimeMaker</footer>
       </div>
     </>
   );

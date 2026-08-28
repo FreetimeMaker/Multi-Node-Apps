@@ -3,13 +3,15 @@
 /* Dark Mode über .dark Klasse am <html> Element (class-basierte Strategie) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Kein Custom-Font: Browser-Default-Schrift verwenden (wie im Original).
+     Tailwind v4 würde sonst per --default-font-family eine Sans-Schrift setzen. */
+  --default-font-family: unset;
+  --default-mono-font-family: unset;
 }
 
 :root {
-  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
   --text: white;
   --img-bg: rgba(255, 255, 255, 0.4);
   --gw-txt: rgba(96, 12, 141, 0.8);
@@ -22,7 +24,7 @@
 }
 
 html.dark {
-  --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
+  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
   --text: black;
   --img-bg: rgba(0, 0, 0, 0.4);
   --gw-txt: rgba(12, 141, 89, 0.8);
@@ -37,7 +39,7 @@ html.dark {
 /* Ladezustand vor Hydration: respektiere Systempräferenz, um Falsches Aufblitzen zu vermeiden */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
+    --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
     --text: black;
     --img-bg: rgba(0, 0, 0, 0.4);
     --gw-txt: rgba(12, 141, 89, 0.8);
@@ -51,7 +53,7 @@ html.dark {
 }
 
 html.light {
-  --bg: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+  --bg: linear-gradient(90deg, rgba(255, 158, 158, 1) 0%, rgba(143, 255, 156, 1) 100%);
   --text: white;
   --img-bg: rgba(255, 255, 255, 0.4);
   --gw-txt: rgba(96, 12, 141, 0.8);
@@ -79,6 +81,36 @@ html.light {
 body {
   background: var(--bg);
   color: var(--text);
+}
+
+/* Kein Custom-Font: Browser-Default-Schrift verwenden (wie im Original-Design).
+   Tailwind v4 setzt per Preflight eine Sans-Schrift auf html; wir überschreiben das. */
+html,
+body {
+  font-family: unset;
+}
+
+/* Basis-Textelemente wie im Original (kein Custom-Font -> Browser-Default) */
+/* Tailwind v4 resetet h1/h2/p (font-size/weight/margin) auf inheri/0; wir stellen
+   die Browser-Default-Werte wieder her, damit es wie das Original ohne Reset aussieht. */
+h1 {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin-block: 0.67em;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-block: 0.83em;
+}
+
+p {
+  text-align: center;
+  font-size: 20px;
+  margin-block: 1em;
 }
 
 /* ---- Scroll- und Einblend-Animationen (angepasst vom Original) ---- */
@@ -155,15 +187,20 @@ body {
    Original-Layout & Responsive-Verhalten (aus dem Referenz-Design)
    ============================================================ */
 
-/* Runde Logos mit Hintergrundfarbe wie im Original */
+/* Runde Logos mit Hintergrundfarbe wie im Original (nur für lang & project).
+   Action-Screenshots (geow/ssmpc) bleiben eckig und ohne Hintergrund. */
 .langpic,
 .projectpic,
 .geowactpic,
 .ssmpcactpic {
-  border-radius: 50%;
-  background-color: var(--img-bg);
   height: auto;
   display: block;
+}
+
+.langpic,
+.projectpic {
+  border-radius: 50%;
+  background-color: var(--img-bg);
 }
 
 .langpic {

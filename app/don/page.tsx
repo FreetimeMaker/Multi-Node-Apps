@@ -2,8 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Donate to me",
-  description: "Support me with donations in Crypto, via OxaPay or GitHub Sponsors.",
+  title: "Donate",
+  description:
+    "Support Freetime Maker with donations in Crypto (Bitcoin, Ethereum, Litecoin, Dogecoin, Tron, Shiba, USDC, USDT), via OxaPay or GitHub Sponsors.",
+  alternates: {
+    canonical: "/don",
+  },
+  keywords: ["Freetime Maker", "donate", "support", "crypto", "Bitcoin", "GitHub Sponsors", "OxaPay"],
+  openGraph: {
+    title: "Donate | Freetime Maker",
+    description:
+      "Support Freetime Maker with donations in Crypto, via OxaPay or GitHub Sponsors.",
+    url: "https://free-time.me/don",
+    type: "website",
+  },
 };
 
 interface DonationItem {

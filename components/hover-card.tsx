@@ -42,9 +42,12 @@ export default function HoverCard({
         alt={alt}
         width={size}
         height={size}
-        className={`${picClass} object-contain p-2`}
+        className={picClass}
       />
-      <h2 className="mt-1 text-center text-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      <h2
+        className="mt-1 invisible opacity-0 transition-opacity duration-300 group-hover:visible group-hover:opacity-100"
+        style={{ maxWidth: size }}
+      >
         {label}
       </h2>
     </div>
