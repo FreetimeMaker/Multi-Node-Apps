@@ -12,7 +12,7 @@
       "framework": "nextjs",
       "routes": [
         { "source": "/api-dashboard", "destination": "/" },
-        { "source": "/api-dashboard/:path*", "destination": "/:path*" },
+        { "source": "/api-dashboard/(.*)", "destination": "/$1" },
         { "source": "/dashboard/_next/:path*", "destination": "/_next/:path*" },
         { "handle": "filesystem" }
       ]
