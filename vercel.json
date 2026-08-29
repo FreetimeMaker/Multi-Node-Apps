@@ -27,6 +27,13 @@
       "routes": [
         { "handle": "filesystem" }
       ]
+    },
+    "sol-arcade": {
+      "root": "sol-arcade/",
+      "framework": "nextjs",
+      "routes": [
+        { "handle": "filesystem" }
+      ]
     }
   },
   "redirects": [
@@ -39,8 +46,8 @@
     { "source": "/login", "destination": { "service": "api-dashboard" } },
     { "source": "/logout", "destination": { "service": "api-dashboard" } },
     { "source": "/shop/:path*", "destination": { "service": "api-dashboard" } },
-    { "source": "/arcade", "destination": { "service": "api-dashboard" } },
-    { "source": "/arcade/:path*", "destination": { "service": "api-dashboard" } },
+    { "source": "/arcade", "destination": { "service": "sol-arcade" } },
+    { "source": "/arcade/:path*", "destination": { "service": "sol-arcade" } },
     { "source": "/health", "destination": { "service": "api-dashboard" } },
     { "source": "/auth/callback", "destination": { "service": "api-dashboard" } },
     { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },

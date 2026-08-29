@@ -20,7 +20,7 @@ const RECIPIENT = process.env.ARCADE_RECIPIENT
     || '';
 const JWT_SECRET = process.env.ARCADE_JWT_SECRET || '';
 const ADMIN_TOKEN = process.env.ARCADE_ADMIN_TOKEN || '';
-const ASSET_BASE = process.env.ARCADE_ASSET_BASE || 'https://free-time.me/api/arcade-assets';
+const ASSET_BASE = process.env.ARCADE_ASSET_BASE || 'https://free-time.me/arcade';
 
 const ARCADE_PRICE_LAMPORTS = 0.05 * 1e9; // 0.05 SOL
 const TOTAL_PLAYS = 3; // number of arcades available

@@ -46,3 +46,4 @@ api/node_modules/*
 api-dashboard/node_modules/*
 .vercel
 .env*
+sol-arcade/node_modules/*

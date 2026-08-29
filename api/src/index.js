@@ -21,7 +21,6 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use('/api/arcade-assets', express.static(path.join(__dirname, 'arcade-assets')));
 
 app.get('/api', (req, res) => {
     res.json({
