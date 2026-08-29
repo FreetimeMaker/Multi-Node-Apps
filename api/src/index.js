@@ -61,7 +61,9 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
-app.use('/api/v1', require('./v1'));
+const v1Module = require('./v1');
+const v1 = v1Module && v1Module.default ? v1Module.default : v1Module;
+app.use('/api/v1', v1);
 
 // Falls die Datei direkt gestartet wird, Server starten
 if (require.main === module) {

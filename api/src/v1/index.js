@@ -8,12 +8,16 @@ const fportApps = require('./fport/apps');
 const walloraWallpapers = require('./wallora/wallpapers');
 const arcadeRoutes = require('./arcade');
 
-router.use('/health', health);
-router.use('/auth', supabaseRoutes);
-router.use('/geoweather/subscriptions', geoWeatherSubscriptions);
-router.use('/fport/apps', fportApps);
-router.use('/wallora/wallpapers', walloraWallpapers);
-router.use('/arcade', arcadeRoutes);
+// Vercel bundelt die Services mit esbuild: require() kann dort ein
+// Namespace-Objekt ({ default: <fn> }) statt der Funktion selbst liefern.
+const unwrap = (m) => (m && m.default ? m.default : m);
+
+router.use('/health', unwrap(health));
+router.use('/auth', unwrap(supabaseRoutes));
+router.use('/geoweather/subscriptions', unwrap(geoWeatherSubscriptions));
+router.use('/fport/apps', unwrap(fportApps));
+router.use('/wallora/wallpapers', unwrap(walloraWallpapers));
+router.use('/arcade', unwrap(arcadeRoutes));
 
 router.get('/', (req, res) => {
     res.json({
