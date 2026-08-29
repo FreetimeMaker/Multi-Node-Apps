@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "All API Arcade",
+  title: "Sol Arcade",
   description: "Log in with your Solana wallet, mint your Arcade Pass & play.",
 };
 
