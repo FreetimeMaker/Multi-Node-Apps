@@ -25,23 +25,26 @@ const ASSET_BASE = process.env.ARCADE_ASSET_BASE || 'https://free-time.me/arcade
 const ARCADE_PRICE_LAMPORTS = 0.05 * 1e9; // 0.05 SOL
 const TOTAL_PLAYS = 3; // number of arcades available
 
-const challenges = new Map(); // nonce -> { message, wallet, expires }
 const JWT_TTL = '24h';
 const CHALLENGE_TTL_MS = 5 * 60 * 1000;
 
 function buildChallengeMessage(wallet) {
     const nonce = crypto.randomUUID();
-    const message = `All API Arcade — Sign in\nWallet: ${wallet}\nNonce: ${nonce}\nIssued: ${Date.now()}`;
-    challenges.set(nonce, { message, wallet, expires: Date.now() + CHALLENGE_TTL_MS });
-    return { nonce, message };
+    return {
+        nonce,
+        message: `All API Arcade — Sign in\nWallet: ${wallet}\nNonce: ${nonce}\nIssued: ${Date.now()}`,
+    };
 }
 
-function consumeChallenge(nonce, wallet) {
-    const stored = challenges.get(nonce);
-    challenges.delete(nonce);
-    if (!stored || stored.wallet !== wallet) return false;
-    if (Date.now() > stored.expires) return false;
-    return stored.message;
+// Stateless check: the signed message already embeds nonce + Issued timestamp,
+// so freshness/ownership can be verified without a shared in-memory map
+// (which does not survive Vercel's serverless instance reuse/rotation).
+function isValidChallenge(message, wallet) {
+    const m = /^All API Arcade — Sign in\nWallet: ([1-9A-HJ-NP-Za-km-z]{32,44})\nNonce: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\nIssued: (\d+)$/.exec(message || '');
+    if (!m || m[1] !== wallet) return false;
+    const issued = Number(m[3]);
+    if (!Number.isFinite(issued)) return false;
+    return Date.now() - issued <= CHALLENGE_TTL_MS;
 }
 
 function verifyWalletSignature(message, signatureB64, wallet) {
@@ -250,7 +253,7 @@ module.exports = {
     ARCADE_PRICE_LAMPORTS,
     TOTAL_PLAYS,
     buildChallengeMessage,
-    consumeChallenge,
+    isValidChallenge,
     verifyWalletSignature,
     signJwt,
     authRequired,

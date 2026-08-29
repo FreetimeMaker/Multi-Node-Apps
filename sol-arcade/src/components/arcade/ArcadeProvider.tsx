@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { ConnectionProvider, WalletProvider, useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
@@ -84,6 +84,7 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
   const [buying, setBuying] = useState(false);
   const [buyError, setBuyError] = useState<string | null>(null);
   const [scores, setScores] = useState<Record<string, number> | null>(null);
+  const autoAttemptedWallet = useRef<string | null>(null);
 
   const walletAddress = publicKey?.toBase58() ?? null;
 
@@ -151,15 +152,19 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (walletAddress) localStorage.removeItem(`arcade_token_${walletAddress}`);
+    autoAttemptedWallet.current = null;
     setToken(null);
     setMe(null);
     setScores(null);
     await disconnect().catch(() => {});
   }, [walletAddress, disconnect]);
 
-  // Auto sign-in right after a wallet connects.
+  // Auto sign-in right after a wallet connects. Only fire once per connected
+  // wallet so a failed attempt doesn't loop and re-prompt for a signature.
   useEffect(() => {
     if (connected && walletAddress && !token && !signingIn) {
+      if (autoAttemptedWallet.current === walletAddress) return;
+      autoAttemptedWallet.current = walletAddress;
       signIn();
     }
   }, [connected, walletAddress, token, signingIn, signIn]);

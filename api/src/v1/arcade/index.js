@@ -5,7 +5,7 @@ const {
     ARCADE_PRICE_LAMPORTS,
     TOTAL_PLAYS,
     buildChallengeMessage,
-    consumeChallenge,
+    isValidChallenge,
     verifyWalletSignature,
     signJwt,
     authRequired,
@@ -56,8 +56,8 @@ router.post('/login', async (req, res) => {
         if (!wallet || !nonce || !message || !signature) {
             return res.status(400).json({ error: 'Bad Request', message: 'wallet, nonce, message and signature are required.' });
         }
-        const expected = consumeChallenge(nonce, wallet);
-        if (expected !== message) {
+        const expected = isValidChallenge(message, wallet);
+        if (!expected) {
             return res.status(401).json({ error: 'Unauthorized', message: 'Challenge invalid or expired.' });
         }
         if (!verifyWalletSignature(message, signature, wallet)) {
