@@ -21,6 +21,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/api/arcade-assets', express.static(path.join(__dirname, 'arcade-assets')));
 
 app.get('/api', (req, res) => {
     res.json({
@@ -43,6 +44,13 @@ app.get('/api', (req, res) => {
                 },
                 'Wallora endpoints': {
                     wallpapers: '/api/v1/wallora/wallpapers'
+                },
+                'Arcade endpoints': {
+                    info: '/api/v1/arcade',
+                    challenge: '/api/v1/arcade/challenge',
+                    login: '/api/v1/arcade/login',
+                    me: '/api/v1/arcade/me',
+                    setup: '/api/v1/arcade/setup'
                 }
             }
         }

@@ -59,6 +59,7 @@ export default function AuthNav() {
           <div className="flex items-center gap-4">
             <a href="/dashboard" className="text-sm font-medium text-slate-300 hover:text-indigo-400 transition-colors">Dashboard</a>
             <a href="/shop" className="text-sm font-medium text-slate-300 hover:text-indigo-400 transition-colors">Shop</a>
+            <a href="/arcade" className="text-sm font-medium text-slate-300 hover:text-indigo-400 transition-colors">Arcade</a>
             <div className="flex items-center gap-3">
               {avatarUrl ? (
                 <img src={avatarUrl} alt={`${name} profile`} className="h-8 w-8 rounded-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
@@ -72,7 +73,10 @@ export default function AuthNav() {
             </div>
           </div>
         ) : (
-          <a href="/login" className="px-3 py-1 rounded bg-indigo-600 text-white text-sm hover:bg-indigo-700 transition-colors">Login</a>
+          <div className="flex items-center gap-4">
+            <a href="/arcade" className="text-sm font-medium text-slate-300 hover:text-indigo-400 transition-colors">Arcade</a>
+            <a href="/login" className="px-3 py-1 rounded bg-indigo-600 text-white text-sm hover:bg-indigo-700 transition-colors">Login</a>
+          </div>
         )}
       </div>
     </nav>

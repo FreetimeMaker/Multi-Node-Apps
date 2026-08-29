@@ -1,0 +1,24 @@
+{
+  "name": "Arcade Pass",
+  "symbol": "ARC",
+  "description": "Einmalig 0.05 SOL — erhältst du deinen lebenslangen Arcade Pass: ein compressed NFT (cNFT) auf Solana, das dir Zugang zu allen Arcade-Games gibt. Minted on mint.",
+  "seller_fee_basis_points": 500,
+  "image": "https://free-time.me/api/arcade-assets/arcade-pass.png",
+  "external_url": "https://free-time.me/arcade",
+  "attributes": [
+    { "trait_type": "Access", "value": "Lifetime" },
+    { "trait_type": "Arcades", "value": "All" },
+    { "trait_type": "Type", "value": "Compressed NFT (Bubblegum)" }
+  ],
+  "properties": {
+    "creators": [
+      { "address": "FreetimeMaker", "share": 100 }
+    ],
+    "files": [
+      {
+        "uri": "https://free-time.me/api/arcade-assets/arcade-pass.png",
+        "type": "image/png"
+      }
+    ]
+  }
+}
