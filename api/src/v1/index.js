@@ -8,22 +8,29 @@ const fportApps = require('./fport/apps');
 const walloraWallpapers = require('./wallora/wallpapers');
 const arcadeRoutes = require('./arcade');
 
-// Vercel (Rolldown) liefert gebündelte Module je nach Build-Variante als
-// { default: <router> }, als Memo-Wrapper-Funktion oder direkt als Funktion.
-// asRouter normalisiert alle Formen zu dem echten express.Router.
-const isRouter = (x) => typeof x === 'function' && typeof x.use === 'function' && typeof x.get === 'function';
+// Vercel (Rolldown) liefert gebündelte Module in wechselnden Formen:
+// { default: <router> }, { default: { default: <router> } }, Memo-Wrapper-
+// Funktion oder direkt die Funktion. asRouter entpackt rekursiv bis zum echten
+// express.Router (max. 5 Ebenen, um zyklische Strukturen auszuschließen).
 const asRouter = (m) => {
-    if (isRouter(m)) return m;
-    if (m && isRouter(m.default)) return m.default;
-    if (m && typeof m.default === 'function') {
-        const inner = m.default();
-        if (isRouter(inner)) return inner;
+    for (let d = 0; d < 5 && m != null; d++) {
+        if (typeof m === 'function') {
+            if (typeof m.use === 'function' && typeof m.get === 'function') return m;
+            m = m();
+            continue;
+        }
+        if (typeof m.default === 'function') {
+            if (typeof m.default.use === 'function' && typeof m.default.get === 'function') return m.default;
+            m = m.default();
+            continue;
+        }
+        if (m.default && typeof m.default === 'object') {
+            m = m.default;
+            continue;
+        }
+        return null;
     }
-    if (typeof m === 'function') {
-        const inner = m();
-        if (isRouter(inner)) return inner;
-    }
-    return m;
+    return null;
 };
 
 router.use('/health', asRouter(health));
