@@ -93,6 +93,19 @@ if (!v1Router) {
     }
 }
 if (!v1Router) {
+    const describe = (m) => {
+        if (m == null) return `nullish(${typeof m})`;
+        if (typeof m === 'function') return `fn(keys=${Object.keys(m).join(',')})`;
+        return `obj(keys=${Object.keys(m).join(',') || '-'}, def=${typeof m.default}, defdef=${typeof (m && m.default && m.default.default)}, defefn=${typeof (m && m.default && m.default())})`;
+    };
+    let probe = null;
+    try {
+        const { createRequire } = require('node:module');
+        probe = createRequire(__filename)('./v1' + '/index.cjs');
+    } catch (e) {
+        probe = `REQUIRE-ERR: ${e.message}`;
+    }
+    console.error(`[api-v1] static=${describe(staticV1)} chunk=${describe(probe)}`);
     throw new Error('[api] konnte ./v1 nicht als Router laden.');
 }
 app.use('/api/v1', v1Router);
