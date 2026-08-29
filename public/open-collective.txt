@@ -141,10 +141,10 @@ Both parties shall treat non-public information as confidential. Personal data w
 
 13.2 Should any provision of these Terms be invalid, the validity of the remaining provisions shall remain unaffected.
 
-13.3 These Terms are governed by the law of [Country/Canton]. To the extent legally permissible, the place of jurisdiction is [Location].
+13.3 These Terms are governed by the law of Switzerland. To the extent legally permissible, the place of jurisdiction is [Location].
 
 ====================================================
 
 By submitting a fiscal hosting application and/or using the Fiscal Host's services, the Project accepts these Terms of Fiscal Hosting.
 
-Contact for applications and inquiries: [email address]
+Contact for applications and inquiries: FreetimeMaker@proton.me
