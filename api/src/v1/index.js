@@ -8,16 +8,30 @@ const fportApps = require('./fport/apps');
 const walloraWallpapers = require('./wallora/wallpapers');
 const arcadeRoutes = require('./arcade');
 
-// Vercel bundelt die Services mit esbuild: require() kann dort ein
-// Namespace-Objekt ({ default: <fn> }) statt der Funktion selbst liefern.
-const unwrap = (m) => (m && m.default ? m.default : m);
+// Vercel (Rolldown) liefert gebündelte Module je nach Build-Variante als
+// { default: <router> }, als Memo-Wrapper-Funktion oder direkt als Funktion.
+// asRouter normalisiert alle Formen zu dem echten express.Router.
+const isRouter = (x) => typeof x === 'function' && typeof x.use === 'function' && typeof x.get === 'function';
+const asRouter = (m) => {
+    if (isRouter(m)) return m;
+    if (m && isRouter(m.default)) return m.default;
+    if (m && typeof m.default === 'function') {
+        const inner = m.default();
+        if (isRouter(inner)) return inner;
+    }
+    if (typeof m === 'function') {
+        const inner = m();
+        if (isRouter(inner)) return inner;
+    }
+    return m;
+};
 
-router.use('/health', unwrap(health));
-router.use('/auth', unwrap(supabaseRoutes));
-router.use('/geoweather/subscriptions', unwrap(geoWeatherSubscriptions));
-router.use('/fport/apps', unwrap(fportApps));
-router.use('/wallora/wallpapers', unwrap(walloraWallpapers));
-router.use('/arcade', unwrap(arcadeRoutes));
+router.use('/health', asRouter(health));
+router.use('/auth', asRouter(supabaseRoutes));
+router.use('/geoweather/subscriptions', asRouter(geoWeatherSubscriptions));
+router.use('/fport/apps', asRouter(fportApps));
+router.use('/wallora/wallpapers', asRouter(walloraWallpapers));
+router.use('/arcade', asRouter(arcadeRoutes));
 
 router.get('/', (req, res) => {
     res.json({

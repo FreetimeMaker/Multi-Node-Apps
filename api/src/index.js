@@ -61,9 +61,41 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
-const v1Module = require('./v1');
-const v1 = v1Module && v1Module.default ? v1Module.default : v1Module;
-app.use('/api/v1', v1);
+// Vercel (Rolldown) liefert gebündelte Module je nach Build-Variante als
+// { default: <router> }, als Memo-Wrapper-Funktion oder direkt als Funktion.
+// asRouter normalisiert alle Formen zu dem echten express.Router.
+const isRouter = (x) => typeof x === 'function' && typeof x.use === 'function' && typeof x.get === 'function';
+const asRouter = (m) => {
+    if (isRouter(m)) return m;
+    if (m && isRouter(m.default)) return m.default;
+    if (m && typeof m.default === 'function') {
+        const inner = m.default();
+        if (isRouter(inner)) return inner;
+    }
+    if (typeof m === 'function') {
+        const inner = m();
+        if (isRouter(inner)) return inner;
+    }
+    return null;
+};
+
+// Rolldown schreibt `require('./v1')` intern zu `require_index.default` um.
+// Sollte diese Interop-Property auf dem Server fehlen, laden wir den real
+// ausgelieferten Chunk zur Laufzeit und normalisieren ihn ebenfalls.
+const staticV1 = require('./v1');
+let v1Router = asRouter(staticV1);
+if (!v1Router) {
+    try {
+        const { createRequire } = require('node:module');
+        v1Router = asRouter(createRequire(__filename)('./v1' + '/index.cjs'));
+    } catch {
+        v1Router = null;
+    }
+}
+if (!v1Router) {
+    throw new Error('[api] konnte ./v1 nicht als Router laden.');
+}
+app.use('/api/v1', v1Router);
 
 // Falls die Datei direkt gestartet wird, Server starten
 if (require.main === module) {
