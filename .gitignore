@@ -48,3 +48,4 @@ api-dashboard/node_modules/*
 .env*
 sol-arcade/node_modules/*
 api/supabase/.temp/*
+.vscode
