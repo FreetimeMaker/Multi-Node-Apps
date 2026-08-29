@@ -1,16 +1,14 @@
-const { Keypair, PublicKey, Connection } = require('@solana/web3.js');
-const bs58 = require('bs58');
-// bs58 v6 ist ESM-first; Rolldown wrappt es als { default: {...} }.
-const bs58Decode = (bs58.decode || (bs58.default && bs58.default.decode))
-    || ((s) => { throw new Error('bs58.decode unavailable'); });
-const nacl = require('tweetnacl');
-const jwt = require('jsonwebtoken');
 const { getSupabaseClient } = require('./supabase');
 
-// Metaplex/umi werden über ein vorab gebündeltes CJS-File geladen (esbuild),
-// damit Vercels Rolldown-Builder keine ESM-Transitivabhängigkeiten auflösen
-// muss und die Module in Production-Builds nicht stubbed.
+// Metaplex/umi/@solana/bs58/nacl/jsonwebtoken sind in einem vorab gebündelten,
+// vollständig selbstenthaltenen CJS-File (esbuild). So muss Vercels Rolldown-
+// Builder in Production keine (teils ESM-only) Transitivabhängigkeiten auflösen,
+// was ein Stubbing der Module verursacht.
 const arcadeGlue = require('./arcade-glue');
+const { Keypair, PublicKey, Connection } = arcadeGlue.web3;
+const bs58Decode = arcadeGlue.bs58;
+const nacl = arcadeGlue.nacl;
+const jwt = arcadeGlue.jwt;
 
 const RPC_URL = process.env.SOLANA_RPC_URL
     || process.env.NEXT_PUBLIC_SOLANA_RPC_URL
