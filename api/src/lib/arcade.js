@@ -1,15 +1,16 @@
 const { Keypair, PublicKey, Connection } = require('@solana/web3.js');
 const bs58 = require('bs58');
+// bs58 v6 ist ESM-first; Rolldown wrappt es als { default: {...} }.
+const bs58Decode = (bs58.decode || (bs58.default && bs58.default.decode))
+    || ((s) => { throw new Error('bs58.decode unavailable'); });
 const nacl = require('tweetnacl');
 const jwt = require('jsonwebtoken');
-const {
-    createUmi,
-} = require('@metaplex-foundation/umi-bundle-defaults');
-const {
-    createSignerFromKeypair,
-    publicKey,
-} = require('@metaplex-foundation/umi');
 const { getSupabaseClient } = require('./supabase');
+
+// Metaplex/umi werden über ein vorab gebündeltes CJS-File geladen (esbuild),
+// damit Vercels Rolldown-Builder keine ESM-Transitivabhängigkeiten auflösen
+// muss und die Module in Production-Builds nicht stubbed.
+const arcadeGlue = require('./arcade-glue');
 
 const RPC_URL = process.env.SOLANA_RPC_URL
     || process.env.NEXT_PUBLIC_SOLANA_RPC_URL
@@ -91,9 +92,9 @@ function getConnection() {
 function getPayerSigner(umi) {
     if (!MINT_PRIVATE_KEY) return null;
     try {
-        const secret = bs58.decode(MINT_PRIVATE_KEY);
+        const secret = bs58Decode(MINT_PRIVATE_KEY);
         const keypair = umi.eddsa.createKeypairFromSecretKey(Uint8Array.from(secret));
-        return createSignerFromKeypair(umi, keypair);
+        return arcadeGlue.createSignerFromKeypair(umi, keypair);
     } catch (e) {
         console.error('MINT_PRIVATE_KEY invalid:', e.message);
         return null;
@@ -103,14 +104,14 @@ function getPayerSigner(umi) {
 function getPayerPublicKey() {
     if (!MINT_PRIVATE_KEY) return null;
     try {
-        return new PublicKey(bs58.decode(MINT_PRIVATE_KEY).slice(0, 32)).toBase58();
+        return new PublicKey(bs58Decode(MINT_PRIVATE_KEY).slice(0, 32)).toBase58();
     } catch (e) {
         return null;
     }
 }
 
 function getUmi() {
-    return createUmi(RPC_URL);
+    return arcadeGlue.createUmi(RPC_URL);
 }
 
 async function getConfigRow() {
@@ -124,7 +125,7 @@ async function getMerkleTree() {
     const row = await getConfigRow();
     if (!row?.value?.tree) return null;
     try {
-        return publicKey(row.value.tree);
+        return arcadeGlue.publicKey(row.value.tree);
     } catch (e) {
         return null;
     }
@@ -155,9 +156,7 @@ async function createMerkleTree() {
 
     const maxDepth = 10;
     const maxBufferSize = 64;
-    const { createTree } = require('@metaplex-foundation/mpl-bubblegum');
-
-    const tree = createTree(umi, {
+    const tree = arcadeGlue.createTree(umi, {
         payer: payerSigner,
         maxDepth,
         maxBufferSize,
@@ -190,9 +189,7 @@ async function findAssetId(umi, tree, leafOwner) {
 }
 
 async function mintPass(umi, payerSigner, tree, leafOwner, saleSignature) {
-    const { mintV1 } = require('@metaplex-foundation/mpl-bubblegum');
-
-    const result = await mintV1(umi, {
+    const result = await arcadeGlue.mintV1(umi, {
         leafOwner,
         merkleTree: tree,
         metadata: {
