@@ -32,7 +32,7 @@ function buildChallengeMessage(wallet) {
     const nonce = crypto.randomUUID();
     return {
         nonce,
-        message: `All API Arcade — Sign in\nWallet: ${wallet}\nNonce: ${nonce}\nIssued: ${Date.now()}`,
+        message: `Sol Arcade — Sign in\nWallet: ${wallet}\nNonce: ${nonce}\nIssued: ${Date.now()}`,
     };
 }
 
@@ -40,7 +40,7 @@ function buildChallengeMessage(wallet) {
 // so freshness/ownership can be verified without a shared in-memory map
 // (which does not survive Vercel's serverless instance reuse/rotation).
 function isValidChallenge(message, wallet) {
-    const m = /^All API Arcade — Sign in\nWallet: ([1-9A-HJ-NP-Za-km-z]{32,44})\nNonce: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\nIssued: (\d+)$/.exec(message || '');
+    const m = /^Sol Arcade — Sign in\nWallet: ([1-9A-HJ-NP-Za-km-z]{32,44})\nNonce: ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\nIssued: (\d+)$/.exec(message || '');
     if (!m || m[1] !== wallet) return false;
     const issued = Number(m[3]);
     if (!Number.isFinite(issued)) return false;
