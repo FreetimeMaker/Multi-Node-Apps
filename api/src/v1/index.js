@@ -43,7 +43,7 @@ router.use('/arcade', asRouter(arcadeRoutes));
 router.get('/', (req, res) => {
     res.json({
         message: 'Welcome to the All API v1!',
-        version: '1.5.0',
+        version: '2.0.0',
         endpoints: {
             'cross endpoints': {
                 health: '/health',
@@ -61,7 +61,7 @@ router.get('/', (req, res) => {
             'Wallora endpoints': {
                 wallpapers: '/wallora/wallpapers'
             },
-            'Arcade endpoints': {
+            'Sol Arcade endpoints': {
                 info: '/arcade',
                 challenge: '/arcade/challenge',
                 login: '/arcade/login',

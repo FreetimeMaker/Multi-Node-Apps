@@ -26,7 +26,7 @@ app.get('/api', (req, res) => {
     res.json({
         message: 'Welcome to the All API!',
         api: {
-            version: '1.5.0',
+            version: '2.0.0',
             'v1 endpoints': {
                 'cross endpoints': {
                     health: '/api/v1/health',
@@ -44,7 +44,7 @@ app.get('/api', (req, res) => {
                 'Wallora endpoints': {
                     wallpapers: '/api/v1/wallora/wallpapers'
                 },
-                'Arcade endpoints': {
+                'Sol Arcade endpoints': {
                     info: '/api/v1/arcade',
                     challenge: '/api/v1/arcade/challenge',
                     login: '/api/v1/arcade/login',
