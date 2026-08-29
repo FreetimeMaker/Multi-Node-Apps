@@ -1,5 +1,5 @@
 TERMS OF FISCAL HOSTING
-for Fiscal Hosting Applications to [Fiscal Host Name]
+for Fiscal Hosting Applications to Freetime Maker Host
 
 Last updated: August 29, 2026
 
@@ -7,7 +7,7 @@ Last updated: August 29, 2026
 
 1. PREAMBLE AND SCOPE
 
-These Terms of Fiscal Hosting ("Terms") govern the relationship between [Fiscal Host Name] (the "Fiscal Host") and projects, initiatives, or informal groups without their own legal personality (each a "Hosted Project" or "Project") that apply for financial and administrative hosting by the Fiscal Host.
+These Terms of Fiscal Hosting ("Terms") govern the relationship between Freetime Maker Host (the "Fiscal Host") and projects, initiatives, or informal groups without their own legal personality (each a "Hosted Project" or "Project") that apply for financial and administrative hosting by the Fiscal Host.
 
 The Fiscal Host makes its legal entity, banking infrastructure, and administrative capacity available so that a Project can receive donations, sponsorships, or other funds and incur expenses without needing to establish its own legal entity (association, nonprofit corporation, foundation, etc.).
 
