@@ -37,7 +37,9 @@
     }
   },
   "redirects": [
-    { "source": "/api-dashboard/", "destination": "/api-dashboard", "permanent": true }
+    { "source": "/api-dashboard/", "destination": "/api-dashboard", "permanent": true },
+    { "source": "/arcade", "destination": "/sol-arcade", "permanent": true },
+    { "source": "/arcade/:path*", "destination": "/sol-arcade/:path*", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },

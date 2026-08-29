@@ -4,7 +4,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  basePath: "/arcade",
+  basePath: "/sol-arcade",
   turbopack: {
     root: path.dirname(fileURLToPath(import.meta.url)),
   },
