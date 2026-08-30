@@ -68,7 +68,7 @@ export default function DonatePage() {
               className="w-[200px] rounded-[10px] bg-white p-4 text-center shadow-[0_2px_5px_rgba(0,0,0,0.1)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.img} alt={item.alt} width={150} className="mx-auto" />
+              <img src={item.img} alt={item.alt} width={150} height={150} className="mx-auto" />
               <h3 className="text-black">{item.title}</h3>
               <p className="text-black">{item.desc}</p>
               <a href={item.href} target={item.target} rel="noopener noreferrer">
