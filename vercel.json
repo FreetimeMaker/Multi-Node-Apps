@@ -62,10 +62,5 @@
     { "source": "/fdroid", "destination": { "service": "fdroid" } },
     { "source": "/fdroid/:path*", "destination": { "service": "fdroid" } },
     { "source": "/:path*", "destination": { "service": "root" } }
-  ],
-  "functions": {
-    "fdroid/index.js": {
-      "includeFiles": "fdroid/fdroidrepo/repo/**"
-    }
-  }
+  ]
 }

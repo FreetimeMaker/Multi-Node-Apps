@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "fdroid/index.js": {
+      "includeFiles": "fdroid/fdroidrepo/repo/**"
+    }
+  }
+}
