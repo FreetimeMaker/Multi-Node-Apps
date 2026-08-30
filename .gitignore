@@ -52,3 +52,5 @@ api/supabase/.temp/*
 fdroid/node_modules/*
 fdroid/fdroidrepo/logs
 fdroid/fdroidrepo/repo/*.log.gz
+fdroid/fdroidrepo/build/*
+fdroid/fdroidrepo/repo/status/*
