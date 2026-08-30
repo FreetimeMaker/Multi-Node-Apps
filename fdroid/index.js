@@ -7,12 +7,12 @@ const app = express();
 // Tell Express that files ending in .html should be rendered with EJS's renderFile
 app.engine('html', ejs.renderFile);
 
-app.use('/fdroidrepo/repo', express.static('/fdroid/repo'));
+app.use('/fdroid', express.static(path.join(__dirname, '/fdroid/fdroidrepo/repo')));
 // Set the default view engine to .html so you can omit the extension in res.render()
 app.set('view engine', 'html');
 
 // Tell Express where your HTML templates live
-app.set('views', path.join(__dirname, 'fdroidrepo/repo'));
+app.set('views', path.join(__dirname, '/fdroid/fdroidrepo/repo'));
 
 // Render the HTML from a route
 app.get('/fdroid', (req, res) => {

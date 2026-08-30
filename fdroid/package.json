@@ -1,6 +1,6 @@
 {
   "name": "fdroid",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This repository hosts an [F-Droid](https://f-droid.org/) repo for my apps. This allows you to install and update apps very easily.",
   "type": "commonjs",
   "main": "index.js",
