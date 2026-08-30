@@ -57,6 +57,8 @@
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
     { "source": "/fdroid", "destination": "/fdroid/repo/index.html" },
     { "source": "/fdroid/", "destination": "/fdroid/repo/index.html" },
+    { "source": "/fdroid/repo", "destination": "/fdroid/repo/" },
+    { "source": "/fdroid/repo/:path*", "destination": "/fdroid/repo/:path*" },
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
