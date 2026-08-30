@@ -49,3 +49,4 @@ api-dashboard/node_modules/*
 sol-arcade/node_modules/*
 api/supabase/.temp/*
 .vscode
+fdroid/node_modules/*
