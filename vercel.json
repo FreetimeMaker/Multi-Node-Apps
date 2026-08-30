@@ -36,8 +36,7 @@
       ]
     },
     "fdroid": {
-      "root": "fdroid/",
-      "framework": "Static HTML"
+      "root": "fdroid/"
     }
   },
   "redirects": [
