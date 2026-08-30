@@ -34,9 +34,6 @@
       "routes": [
         { "handle": "filesystem" }
       ]
-    },
-    "fdroid": {
-      "root": "fdroid"
     }
   },
   "redirects": [
@@ -47,22 +44,16 @@
   "rewrites": [
     { "source": "/", "destination": { "service": "root" } },
     { "source": "/api-dashboard/:path*", "destination": { "service": "api-dashboard" } },
-    { "source": "/dashboard/:path*", "destination": { "service": "api-dashboard" } },
-    { "source": "/login", "destination": { "service": "api-dashboard" } },
-    { "source": "/logout", "destination": { "service": "api-dashboard" } },
-    { "source": "/shop/:path*", "destination": { "service": "api-dashboard" } },
-    { "source": "/sol-arcade", "destination": { "service": "sol-arcade" } },
     { "source": "/sol-arcade/:path*", "destination": { "service": "sol-arcade" } },
-    { "source": "/health", "destination": { "service": "api-dashboard" } },
-    { "source": "/auth/callback", "destination": { "service": "api-dashboard" } },
-    { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },
-    { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
+    { "source": "/api/:path*", "destination": { "service": "api" } },
+    
     { "source": "/fdroid", "destination": "/fdroid/repo/index.html" },
     { "source": "/fdroid/", "destination": "/fdroid/repo/index.html" },
     { "source": "/fdroid/repo", "destination": "/fdroid/repo/index.html" },
     { "source": "/fdroid/repo/", "destination": "/fdroid/repo/index.html" },
-    { "source": "/fdroid/:path*", "destination": "/fdroid/:path*" },
+    { "source": "/fdroid/repo/:path*", "destination": "/fdroid/repo/:path*" },
+    
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
