@@ -54,3 +54,4 @@ fdroid/fdroidrepo/logs
 fdroid/fdroidrepo/repo/*.log.gz
 fdroid/fdroidrepo/build/*
 fdroid/fdroidrepo/repo/status/*
+fdroid/fdroidrepo/keystore.p12
