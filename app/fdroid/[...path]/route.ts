@@ -2,9 +2,10 @@ import { head } from '@vercel/blob';
 
 export async function GET(
   req: Request,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const blobPath = `fdroid/repo/${params.path.join('/')}`;
+  const { path } = await params;
+  const blobPath = `fdroid/repo/${path.join('/')}`;
 
   try {
     const blob = await head(blobPath, {
