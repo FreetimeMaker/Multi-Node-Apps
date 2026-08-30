@@ -14,13 +14,17 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
 // Render the HTML from a route
-app.get('/', (req, res) => {
+app.get('/fdroid', (req, res) => {
     // Because we set the view engine to "html", we can just pass the name without the extension
     res.render('index');   // Express will look for views/index.html
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server listening on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;

@@ -34,10 +34,15 @@
       "routes": [
         { "handle": "filesystem" }
       ]
+    },
+    "fdroid": {
+      "root": "fdroid/",
+      "framework": "express"
     }
   },
   "redirects": [
     { "source": "/api-dashboard/", "destination": "/api-dashboard", "permanent": true },
+    { "source": "/fdroid/", "destination": "/fdroid", "permanent": true },
     { "source": "/arcade", "destination": "/sol-arcade", "permanent": true },
     { "source": "/arcade/:path*", "destination": "/sol-arcade/:path*", "permanent": true }
   ],
@@ -55,6 +60,7 @@
     { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
+    { "source": "/fdroid/:path*", "destination": { "service": "fdroid" } },
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
