@@ -1,23 +1,26 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+
 const app = express();
 
-// process.cwd() garantiert in Serverless-Umgebungen den Zugriff vom Projektstamm
+// Absolute Pfadbestimmung für Vercel Serverless
 const repoPath = path.join(process.cwd(), 'fdroid', 'fdroidrepo', 'repo');
 
-// Relativer Fallback falls lokal ausgeführt
-const localRepoPath = path.join(__dirname, 'fdroidrepo', 'repo');
-const finalPath = require('fs').existsSync(repoPath) ? repoPath : localRepoPath;
+// Statische Dateien für alle möglichen Routing-Varianten bereitstellen
+app.use('/', express.static(repoPath));
+app.use('/fdroid', express.static(repoPath));
+app.use('/repo', express.static(repoPath));
+app.use('/fdroid/repo', express.static(repoPath));
 
-// Serve Dateien sowohl auf Root als auch auf /fdroid und /repo
-app.use('/', express.static(finalPath));
-app.use('/fdroid', express.static(finalPath));
-app.use('/repo', express.static(finalPath));
-app.use('/fdroid/repo', express.static(finalPath));
-
-// Explizite Handhabung für HTML-Aufrufe
-app.get(['/', '/fdroid', '/fdroid/'], (req, res) => {
-    res.sendFile(path.join(finalPath, 'index.html'));
+// Fallback für HTML-Aufrufe
+app.get('*', (req, res) => {
+  const indexPath = path.join(repoPath, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).send('F-Droid Repository index.html not found on server.');
+  }
 });
 
 module.exports = app;
