@@ -11,7 +11,7 @@ app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 
 // Tell Express where your HTML templates live
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'fdroidrepo/repo'));
 
 // Render the HTML from a route
 app.get('/fdroid', (req, res) => {
