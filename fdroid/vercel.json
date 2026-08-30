@@ -2,7 +2,7 @@
   "cleanUrls": false,
   "headers": [
     {
-      "source": "/fdroidrepo/(.*)",
+      "source": "/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]

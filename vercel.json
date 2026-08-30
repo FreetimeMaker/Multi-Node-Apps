@@ -37,7 +37,7 @@
     },
     "fdroid": {
       "root": "fdroid/",
-      "framework": "express"
+      "framework": "static HTML"
     }
   },
   "redirects": [
@@ -62,5 +62,11 @@
     { "source": "/fdroid", "destination": { "service": "fdroid" } },
     { "source": "/fdroid/:path*", "destination": { "service": "fdroid" } },
     { "source": "/:path*", "destination": { "service": "root" } }
+  ],
+  "builds": [
+    {
+      "src": "fdroid/repo/**",
+      "use": "@vercel/static"
+    }
   ]
 }
