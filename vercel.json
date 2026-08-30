@@ -36,7 +36,7 @@
       ]
     },
     "fdroid": {
-      "root": "fdroid/"
+      "root": "fdroid"
     }
   },
   "redirects": [
@@ -58,8 +58,8 @@
     { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
-    { "source": "/fdroid", "destination": { "service": "fdroid" } },
-    { "source": "/fdroid/:path*", "destination": { "service": "fdroid" } },
+    { "source": "/fdroid/repo", "destination": { "service": "fdroid" } },
+    { "source": "/fdroid/repo/:path*", "destination": { "service": "fdroid" } },
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
