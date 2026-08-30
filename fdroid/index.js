@@ -4,23 +4,22 @@ const path = require('path');
 
 const app = express();
 
-// Tell Express that files ending in .html should be rendered with EJS's renderFile
 app.engine('html', ejs.renderFile);
-
-app.use('/fdroid', express.static(path.join(__dirname, '/fdroid/fdroidrepo/repo')));
-// Set the default view engine to .html so you can omit the extension in res.render()
 app.set('view engine', 'html');
 
-// Tell Express where your HTML templates live
-app.set('views', path.join(__dirname, '/fdroid/fdroidrepo/repo'));
+// 1. Absoluten Pfad ohne führende Slashes in den Unterordnern definieren
+const repoPath = path.join(__dirname, 'fdroid', 'fdroidrepo', 'repo');
+app.set('views', repoPath);
 
-// Render the HTML from a route
+// 2. Statische Auslieferung für /fdroid VOR allen GET-Routen platzieren
+// Route auf /fdroid/repo ändern
+app.use('/fdroid/repo', express.static(repoPath));
+
+// 3. Fallback: Falls jemand im Browser /fdroid aufruft und Express die index.html aus repoPath rendern soll
 app.get('/fdroid', (req, res) => {
-    // Because we set the view engine to "html", we can just pass the name without the extension
-    res.render('index');   // Express will look for views/index.html
+    res.render('index');
 });
 
-// Start the server
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
