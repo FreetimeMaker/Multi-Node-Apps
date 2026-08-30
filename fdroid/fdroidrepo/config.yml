@@ -1,4 +1,4 @@
-sdk_path: /usr/lib/android-sdk
+sdk_path: /home/jamie/android-sdk
 apksigner: /usr/bin/apksigner
 
 ndk_paths:
