@@ -60,7 +60,7 @@
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
     { "source": "/fdroid", "destination": { "service": "fdroid" } },
-    { "source": "/fdroid/(.*)", "destination": { "service": "fdroid" } },
+    { "source": "/fdroid/:path*", "destination": { "service": "fdroid" } },
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
