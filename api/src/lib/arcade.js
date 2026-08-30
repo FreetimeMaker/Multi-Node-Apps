@@ -24,6 +24,7 @@ const ASSET_BASE = process.env.ARCADE_ASSET_BASE || 'https://free-time.me/sol-ar
 
 const ARCADE_PRICE_LAMPORTS = 0.05 * 1e9; // 0.05 SOL
 const TOTAL_PLAYS = 3; // number of arcades available
+const PLAYS_LIMIT = parseInt(process.env.ARCADE_PLAYS_LIMIT || '10', 10); // game starts per pass
 
 const JWT_TTL = '24h';
 const CHALLENGE_TTL_MS = 5 * 60 * 1000;
@@ -252,6 +253,7 @@ module.exports = {
     ASSET_BASE,
     ARCADE_PRICE_LAMPORTS,
     TOTAL_PLAYS,
+    PLAYS_LIMIT,
     buildChallengeMessage,
     isValidChallenge,
     verifyWalletSignature,

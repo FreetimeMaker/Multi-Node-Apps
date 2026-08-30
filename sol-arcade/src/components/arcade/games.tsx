@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 interface GameProps {
   disabled?: boolean;
   onFinish: (score: number) => void;
+  onStart?: () => void;
 }
 
 function useCountdown(seconds: number, onDone: () => void) {
@@ -38,7 +39,7 @@ function useCountdown(seconds: number, onDone: () => void) {
 }
 
 /* ---------------- Speed Tap ---------------- */
-function SpeedTap({ disabled, onFinish }: GameProps) {
+function SpeedTap({ disabled, onFinish, onStart }: GameProps) {
   const [score, setScore] = useState(0);
   const [target, setTarget] = useState<{ x: number; y: number; size: number } | null>(null);
   const { remaining, running, start } = useCountdown(20, () => onFinish(score));
@@ -89,7 +90,7 @@ function SpeedTap({ disabled, onFinish }: GameProps) {
         {!running && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
             <p className="text-slate-300 text-sm">{score > 0 ? `Final score: ${score}` : "Tap as many targets as possible in 20 seconds."}</p>
-            <button onClick={start} disabled={disabled} className="px-5 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 disabled:opacity-40">
+            <button onClick={() => { start(); onStart?.(); }} disabled={disabled} className="px-5 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-500 disabled:opacity-40">
               {score > 0 ? "Play again" : "Start"}
             </button>
           </div>
@@ -102,7 +103,7 @@ function SpeedTap({ disabled, onFinish }: GameProps) {
 /* ---------------- Coin Catch ---------------- */
 interface FallingCoin { id: number; x: number; delay: number; speed: number }
 
-function CoinCatch({ disabled, onFinish }: GameProps) {
+function CoinCatch({ disabled, onFinish, onStart }: GameProps) {
   const [coins, setCoins] = useState<FallingCoin[]>([]);
   const [caught, setCaught] = useState(0);
   const [missed, setMissed] = useState(0);
@@ -158,7 +159,7 @@ function CoinCatch({ disabled, onFinish }: GameProps) {
         {!running && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
             <p className="text-slate-300 text-sm">{caught > 0 ? `Final score: ${caught} coins` : "Catch as many coins as possible in 30 seconds."}</p>
-            <button onClick={start} disabled={disabled} className="px-5 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-500 disabled:opacity-40">
+            <button onClick={() => { start(); onStart?.(); }} disabled={disabled} className="px-5 py-2 rounded-lg bg-amber-600 text-white text-sm font-medium hover:bg-amber-500 disabled:opacity-40">
               {caught > 0 ? "Play again" : "Start"}
             </button>
           </div>
@@ -171,7 +172,7 @@ function CoinCatch({ disabled, onFinish }: GameProps) {
 /* ---------------- Memory Match ---------------- */
 const PAIR_EMOJIS = ["🪐", "🚀", "👾", "🎮", "🧠", "🕹️", "🔥", "💎"];
 
-function MemoryMatch({ disabled, onFinish }: GameProps) {
+function MemoryMatch({ disabled, onFinish, onStart }: GameProps) {
   const [cards, setCards] = useState<{ id: number; emoji: string; flipped: boolean }[]>([]);
   const [flipped, setFlipped] = useState<number[]>([]);
   const [matches, setMatches] = useState(0);
@@ -181,6 +182,7 @@ function MemoryMatch({ disabled, onFinish }: GameProps) {
   const lockRef = useRef(false);
 
   function newGame() {
+    onStart?.();
     const deck = [...PAIR_EMOJIS, ...PAIR_EMOJIS].sort(() => Math.random() - 0.5);
     setCards(deck.map((emoji, id) => ({ id, emoji, flipped: false })));
     setFlipped([]);

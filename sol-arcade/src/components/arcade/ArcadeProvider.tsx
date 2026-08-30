@@ -14,12 +14,14 @@ export interface ArcadePass {
   asset_id: string | null;
   mint_signature: string | null;
   purchase_payment: string | null;
+  plays_used: number;
   created_at: string;
 }
 
 export interface ArcadeMe {
   wallet: string;
   pass: ArcadePass | null;
+  plays_limit: number;
   configured: { payer: boolean; tree: boolean };
 }
 
@@ -34,6 +36,8 @@ interface ArcadeContextValue {
   me: ArcadeMe | null;
   loadingMe: boolean;
   refreshMe: () => Promise<void>;
+  startGame: (game: string) => Promise<{ ok: boolean; plays_left: number } | null>;
+  playsLeft: number;
   buyPass: () => Promise<ArcadePass | null>;
   buying: boolean;
   buyError: string | null;
@@ -50,7 +54,7 @@ function toBase64(bytes: Uint8Array): string {
 }
 
 async function apiPost<T = unknown>(path: string, body: unknown, token?: string | null): Promise<T> {
-  const res = await fetch(`${API_BASE}/v1/arcade/${path}`, {
+  const res = await fet(path, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -64,6 +68,21 @@ async function apiPost<T = unknown>(path: string, body: unknown, token?: string 
     throw new Error(msg);
   }
   return data as T;
+}
+
+async function fet(path: string, init?: RequestInit, timeoutMs = 10000): Promise<Response> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    return await fetch(`${API_BASE}/v1/arcade/${path}`, { ...init, signal: ctrl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function fetAbortMessage(e: unknown): string {
+  if (e instanceof Error && e.name === "AbortError") return "Request timed out.";
+  return e instanceof Error ? e.message : "Request failed.";
 }
 
 function ArcadeController({ children }: { children: React.ReactNode }) {
@@ -92,9 +111,7 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
     if (!token) return;
     setLoadingMe(true);
     try {
-      const res = await fetch(`${API_BASE}/v1/arcade/me`, {
-        headers: { authorization: `Bearer ${token}` },
-      });
+      const res = await fet("me", { headers: { authorization: `Bearer ${token}` } });
       if (res.ok) {
         setMe(await res.json());
       }
@@ -117,9 +134,9 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
     setSigningIn(true);
     setBuyError(null);
     try {
-      const challenge = await fetch(
-        `${API_BASE}/v1/arcade/challenge?wallet=${encodeURIComponent(walletAddress)}`
-      ).then<{ nonce: string; message: string }>((r) => r.json());
+      const challenge = await fet(`challenge?wallet=${encodeURIComponent(walletAddress)}`).then<
+        { nonce: string; message: string }
+      >((r) => r.json());
 
       const messageBytes = new TextEncoder().encode(challenge.message);
       const signature = await signMessage(messageBytes);
@@ -131,7 +148,7 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
       setToken(auth.token);
       localStorage.setItem(`arcade_token_${walletAddress}`, auth.token);
     } catch (e) {
-      setBuyError(e instanceof Error ? e.message : "Sign in failed.");
+      setBuyError(fetAbortMessage(e));
     } finally {
       setSigningIn(false);
     }
@@ -168,6 +185,20 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
       signIn();
     }
   }, [connected, walletAddress, token, signingIn, signIn]);
+
+  const startGame = useCallback(
+    async (game: string) => {
+      if (!token || !walletAddress) return null;
+      try {
+        const result = await apiPost<{ ok: boolean; plays_left: number }>("play/start", { game }, token);
+        await refreshMe();
+        return result;
+      } catch {
+        return null;
+      }
+    },
+    [token, walletAddress, refreshMe]
+  );
 
   const buyPass = useCallback(async () => {
     if (!token || !walletAddress || !sendTransaction || !connection) return null;
@@ -228,7 +259,7 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!token) return;
-    fetch(`${API_BASE}/v1/arcade/scores`, { headers: { authorization: `Bearer ${token}` } })
+    fet("scores", { headers: { authorization: `Bearer ${token}` } })
       .then((r) => r.json())
       .then((data: { scores?: { game: string; score: number }[] }) => {
         const map: Record<string, number> = {};
@@ -237,6 +268,8 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
       })
       .catch(() => {});
   }, [token]);
+
+  const playsLeft = me?.pass ? Math.max(0, (me.plays_limit ?? 0) - (me.pass.plays_used ?? 0)) : 0;
 
   const value = useMemo<ArcadeContextValue>(
     () => ({
@@ -250,13 +283,15 @@ function ArcadeController({ children }: { children: React.ReactNode }) {
       me,
       loadingMe,
       refreshMe,
+      startGame,
+      playsLeft,
       buyPass,
       buying,
       buyError,
       recordScore,
       scores,
     }),
-    [connected, connecting, walletAddress, signIn, signOut, token, me, loadingMe, refreshMe, buyPass, buying, buyError, recordScore, scores]
+    [connected, connecting, walletAddress, signIn, signOut, token, me, loadingMe, refreshMe, startGame, playsLeft, buyPass, buying, buyError, recordScore, scores]
   );
 
   return <ArcadeContext.Provider value={value}>{children}</ArcadeContext.Provider>;

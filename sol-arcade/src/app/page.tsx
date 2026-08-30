@@ -7,6 +7,7 @@ import Spinner from "../components/Spinner";
 
 function PassCard() {
   const { me, buyPass, buying, buyError } = useArcade();
+  const plays = me?.plays_limit ?? 10;
   const [success, setSuccess] = useState<string | null>(null);
 
   async function handleBuy() {
@@ -26,7 +27,7 @@ function PassCard() {
       </div>
       <h2 className="text-xl font-bold text-white text-center mb-1">Arcade Pass</h2>
       <p className="text-sm text-slate-400 text-center mb-4">
-        A compressed NFT (cNFT) minted to your wallet — lifetime access to all arcades.
+        A compressed NFT (cNFT) minted to your wallet — {plays} game starts. Once used up, the pass disappears.
       </p>
       <div className="flex items-center justify-center gap-2 mb-5">
         <span className="px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800/60 text-amber-400 text-sm font-semibold">0.05 SOL</span>
@@ -80,7 +81,7 @@ function PassCard() {
 const GAME_LOCKED = "🔒";
 
 function ArcadeUI() {
-  const { connected, publicKey, me, loadingMe, token, signOut, scores, recordScore } = useArcade();
+  const { connected, publicKey, me, loadingMe, token, scores, recordScore, startGame, playsLeft } = useArcade();
   const hasPass = !!me?.pass;
 
   return (
@@ -98,14 +99,6 @@ function ArcadeUI() {
               </span>
             )}
             <WalletMultiButton />
-            {connected && (
-              <button
-                onClick={signOut}
-                className="px-3 py-2 rounded bg-slate-800 text-slate-300 text-sm hover:bg-slate-700 transition-colors"
-              >
-                Sign out
-              </button>
-            )}
           </div>
         </div>
       </header>
@@ -116,7 +109,7 @@ function ArcadeUI() {
             <div className="text-6xl mb-4">🕹️</div>
             <h2 className="text-2xl font-bold text-white mb-2">Ready to play?</h2>
             <p className="text-slate-400 max-w-md mx-auto mb-6">
-              Connect your Solana wallet to sign in. Mint your Arcade Pass for 0.05 SOL and unlock every game forever.
+              Connect your Solana wallet to sign in. Mint your Arcade Pass for 0.05 SOL and get {me?.plays_limit ?? 10} game starts.
             </p>
             <div className="flex justify-center">
               <WalletMultiButton />
@@ -135,7 +128,7 @@ function ArcadeUI() {
                   <div className="text-4xl mb-3">✅</div>
                   <h2 className="text-xl font-bold text-white mb-1">Arcade Pass active</h2>
                   <p className="text-sm text-emerald-300 mb-4">
-                    Verified cNFT — all arcades are unlocked. Welcome, player!
+                    Verified cNFT — game starts left: <span className="font-bold">{playsLeft}</span>. It disappears after the last start.
                   </p>
                   <div className="text-left bg-slate-900/60 border border-slate-800 rounded-lg p-3 space-y-1 text-xs font-mono text-slate-400">
                     {me?.pass?.asset_id && (
@@ -161,7 +154,7 @@ function ArcadeUI() {
             <section>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold text-white">Arcade Games</h2>
-                {hasPass && <span className="text-xs text-emerald-400 font-medium">UNLOCKED</span>}
+                {hasPass && <span className="text-xs text-emerald-400 font-medium">{playsLeft} starts left</span>}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {ARCADE_GAMES.map((game) => {
@@ -184,7 +177,7 @@ function ArcadeUI() {
                       </div>
                       <h3 className="font-semibold text-white mb-1">{game.name}</h3>
                       <p className="text-sm text-slate-400 mb-4">{game.description}</p>
-                      <Game disabled={!hasPass} onFinish={(score) => hasPass && recordScore(game.id, score)} />
+                      <Game disabled={!hasPass} onFinish={(score) => hasPass && recordScore(game.id, score)} onStart={() => hasPass && startGame(game.id)} />
                     </div>
                   );
                 })}
@@ -192,7 +185,7 @@ function ArcadeUI() {
             </section>
 
             <div className="mt-10 text-center text-xs text-slate-600">
-              Pass is stored as a compressed NFT on Solana (Bubblegum) — check your wallet&apos;s compressed assets.
+              Pass is stored as a compressed NFT on Solana (Bubblegum) and disappears automatically after your last game start.
             </div>
           </>
         )}

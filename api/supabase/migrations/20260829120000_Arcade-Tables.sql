@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS public.arcade_passes (
     asset_id TEXT,
     mint_signature TEXT,
     purchase_payment TEXT,
+    plays_used INTEGER NOT NULL DEFAULT 0,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

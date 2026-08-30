@@ -4,6 +4,7 @@ const {
     RECIPIENT,
     ARCADE_PRICE_LAMPORTS,
     TOTAL_PLAYS,
+    PLAYS_LIMIT,
     buildChallengeMessage,
     isValidChallenge,
     verifyWalletSignature,
@@ -32,6 +33,7 @@ router.get('/', (req, res) => {
         price: { sol: 0.05, lamports: ARCADE_PRICE_LAMPORTS },
         recipient: RECIPIENT || null,
         arcades: TOTAL_PLAYS,
+        plays_limit: PLAYS_LIMIT,
         configured: {
             rpc: !!process.env.SOLANA_RPC_URL || !!process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
             payer: !!MINT_PRIVATE_KEY,
@@ -89,6 +91,7 @@ router.get('/me', authRequired, async (req, res) => {
         res.json({
             wallet: req.wallet,
             pass,
+            plays_limit: PLAYS_LIMIT,
             configured: {
                 payer: !!MINT_PRIVATE_KEY,
                 tree: !!(pass || null) || !!(await getMerkleTree()),
@@ -229,6 +232,33 @@ router.post('/setup', requireAdmin, async (req, res) => {
     } catch (e) {
         console.error('arcade setup error:', e.message);
         res.status(500).json({ error: 'Setup failed', details: e.message });
+    }
+});
+
+// POST /play/start — consume one game start; at the limit the pass disappears
+router.post('/play/start', authRequired, async (req, res) => {
+    try {
+        const client = getSupabaseClient();
+        if (!client) return res.status(503).json({ error: 'Setup required', message: 'Supabase is not configured.' });
+
+        const pass = await getPass(req.wallet);
+        if (!pass) {
+            return res.status(403).json({ error: 'Forbidden', message: 'Arcade Pass required.' });
+        }
+
+        const used = (pass.plays_used || 0) + 1;
+        if (used >= PLAYS_LIMIT) {
+            const { error } = await client.from('arcade_passes').delete().eq('wallet', req.wallet);
+            if (error) throw error;
+            return res.json({ ok: true, plays_left: 0, consumed: true, pass: null });
+        }
+
+        const { error } = await client.from('arcade_passes').update({ plays_used: used }).eq('wallet', req.wallet);
+        if (error) throw error;
+        return res.json({ ok: true, plays_left: PLAYS_LIMIT - used, consumed: false });
+    } catch (e) {
+        console.error('arcade play/start error:', e.message);
+        res.status(500).json({ error: 'Server error', details: e.message });
     }
 });
 
