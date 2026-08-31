@@ -49,9 +49,3 @@ api-dashboard/node_modules/*
 sol-arcade/node_modules/*
 api/supabase/.temp/*
 .vscode
-fdroid/node_modules/*
-fdroid/fdroidrepo/logs
-fdroid/fdroidrepo/repo/*.log.gz
-fdroid/fdroidrepo/build/*
-fdroid/fdroidrepo/repo/status/*
-fdroid/fdroidrepo/keystore.p12

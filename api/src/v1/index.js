@@ -42,6 +42,7 @@ router.get('/api/v1', (req, res) => {
     res.json({
         message: 'Welcome to the All API v1!',
         version: '1.5.0',
+        message: 'This API Version is deprecated please visit /api/v2 instead of /api/v1.',
         endpoints: {
             'cross endpoints': {
                 health: '/health',

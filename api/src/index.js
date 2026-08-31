@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
         message: 'Welcome to the All API!',
         api: {
             version: '2.1.0',
-            'v1 endpoints': {
+            'old v1 endpoints': {
                 'cross endpoints': {
                     health: '/api/v1/health',
                     login: '/api/v1/auth/login',
