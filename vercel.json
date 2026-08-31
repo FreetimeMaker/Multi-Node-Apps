@@ -55,10 +55,10 @@
     { "source": "/api/proxy/:path*", "destination": { "service": "api-dashboard" } },
     { "source": "/api/:path*", "destination": { "service": "api" } },
     { "source": "/geoweather/:path*", "destination": { "service": "geoweather" } },
-    { "source": "/fdroid", "destination": "/fdroid/repo/index.html" },
-    { "source": "/fdroid/", "destination": "/fdroid/repo/index.html" },
-    { "source": "/fdroid/repo", "destination": "/fdroid/repo/" },
-    { "source": "/fdroid/repo/:path*", "destination": "/fdroid/repo/:path*" },
+    { "source": "/fdroid", "destination": "/repo/index.html" },
+    { "source": "/fdroid/", "destination": "/repo/index.html" },
+    { "source": "/fdroid/repo", "destination": "/repo/index.html" },
+    { "source": "/fdroid/repo/:path*", "destination": "/repo/:path*" },
     { "source": "/:path*", "destination": { "service": "root" } }
   ]
 }
