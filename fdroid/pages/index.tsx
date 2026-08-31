@@ -7,20 +7,35 @@ type RepoProps = {
   markup: string;
 };
 
-const REPO_BASE = process.env.NEXT_PUBLIC_REPO_BASE || "/fdroid/repo";
+// Basispfad zu den statischen Dateien in public/repo
+const REPO_BASE = "/repo";
 
 export const getStaticProps: GetStaticProps<RepoProps> = async () => {
-  const file = path.join(process.cwd(), "public", "repo", "index.html");
-  let markup = "<p>No repository index found at public/repo/index.html.</p>";
+  const filePath = path.join(process.cwd(), "public", "repo", "index.html");
+  let markup = "";
+
   try {
-    markup = fs.readFileSync(file, "utf8");
-  } catch {
-    // keep the build green if the F-Droid index was never generated
+    if (fs.existsSync(filePath)) {
+      markup = fs.readFileSync(filePath, "utf8");
+
+      // HTML-Wrapper entfernen
+      markup = markup
+        .replace(/<!DOCTYPE[^>]*>/gi, "")
+        .replace(/<\/?html[^>]*>/gi, "")
+        .replace(/<head[\s\S]*?<\/head>/gi, "")
+        .replace(/<\/?body[^>]*>/gi, "");
+
+      // Pfade für Bilder und Links auf REPO_BASE umschreiben
+      markup = markup
+        .replace(/src=["']\.\/([^"']+)["']/g, `src="${REPO_BASE}/$1"`)
+        .replace(/src=["'](?!http|https|\/)([^"']+)["']/g, `src="${REPO_BASE}/$1"`)
+        .replace(/href=["']\.\/([^"']+)["']/g, `href="${REPO_BASE}/$1"`);
+    } else {
+      markup = `<p style="padding: 20px; font-family: sans-serif;">Datei nicht gefunden unter: ${filePath}</p>`;
+    }
+  } catch (error) {
+    markup = `<p style="padding: 20px; font-family: sans-serif;">Fehler beim Laden: ${String(error)}</p>`;
   }
-  markup = markup
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<!DOCTYPE[^>]*>/i, "")
-    .replace(/<base\b[^>]*>/i, `<base href="${REPO_BASE}/">`);
 
   return { props: { markup } };
 };
@@ -32,10 +47,14 @@ export default function FdroidRepoPage({ markup }: RepoProps) {
         <title>Freetime Repository &mdash; F-Droid</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="index,nofollow" />
+        {/* Hier explizit auf index.css verweisen */}
+        <link rel="stylesheet" href={`${REPO_BASE}/index.css`} />
         <link rel="icon" href={`${REPO_BASE}/icons/icon.png`} type="image/png" />
-        <style>{`[data-fdroid-repo]{font-family:Arial,Helvetica,Sans-Serif;font-size:14px;color:#0000ee;background-color:#fff;padding:16px;}[data-fdroid-repo] a{color:#bb0000;}`}</style>
       </Head>
-      <div data-fdroid-repo dangerouslySetInnerHTML={{ __html: markup }} />
+      <div 
+        className="fdroid-repo-wrapper"
+        dangerouslySetInnerHTML={{ __html: markup }} 
+      />
     </>
   );
 }
