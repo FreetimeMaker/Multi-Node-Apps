@@ -198,6 +198,11 @@ export default function HomePage() {
               Go to the Dashboard to control everything.
             </h2>
           </a>
+          <a className="text-fdroid-repo-txt no-underline" href="https://free-time.me/fdroid/repo/index.html" title="Visit my own F-Droid Repository.">
+            <h2>
+                Visit my own F-Droid Repository.
+            </h2>
+          </a>
         </div>
 
         <footer className="mt-[25px] text-center">&copy;  2026 FreetimeMaker</footer>
