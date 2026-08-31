@@ -22,11 +22,11 @@ app.use(cors());
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
     res.json({
         message: 'Welcome to the All API!',
         api: {
-            version: '2.0.0',
+            version: '2.1.0',
             'v1 endpoints': {
                 'cross endpoints': {
                     health: '/api/v1/health',
@@ -43,20 +43,38 @@ app.get('/api', (req, res) => {
                 },
                 'Wallora endpoints': {
                     wallpapers: '/api/v1/wallora/wallpapers'
+                }
+            },
+            'v2 endpoints' : {
+                'cross endpoints': {
+                    health: '/api/v2/health',
+                    login: '/api/v2/auth/login',
+                    logout: '/api/v2/auth/logout'
+                },
+                'GeoWeather endpoints': {
+                    subscriptions: '/api/v2/geoweather/subscriptions',
+                    plans: '/api/v2/geoweather/subscriptions/plans',
+                    redeem: '/api/v2/geoweather/subscriptions/redeem',
+                },
+                'F-Port endpoints': {
+                    apps: '/api/v2/fport/apps'
+                },
+                'Wallora endpoints': {
+                    wallpapers: '/api/v2/wallora/wallpapers'
                 },
                 'Sol Arcade endpoints': {
-                    info: '/api/v1/arcade',
-                    challenge: '/api/v1/arcade/challenge',
-                    login: '/api/v1/arcade/login',
-                    me: '/api/v1/arcade/me',
-                    setup: '/api/v1/arcade/setup'
+                    info: '/api/v2/arcade',
+                    challenge: '/api/v2/arcade/challenge',
+                    login: '/api/v2/arcade/login',
+                    me: '/api/v2/arcade/me',
+                    setup: '/api/v2/arcade/setup'
                 }
             }
         }
     });
 });
 
-app.get('/api/health', (req, res) => {
+app.get('/api/v2/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
@@ -122,6 +140,41 @@ if (!v1Router) {
     throw new Error('[api] konnte ./v1 nicht als Router laden.');
 }
 app.use('/api/v1', v1Router);
+
+const staticV2 = require('./v2');
+let v2Router = asRouter(staticV2);
+if (!v2Router) {
+    try {
+        const { createRequire } = require('node:module');
+        v2Router = asRouter(createRequire(__filename)('./v2' + '/index.cjs'));
+    } catch {
+        v2Router = null;
+    }
+}
+if (!v2Router) {
+    const describe = (m) => {
+        if (m == null) return `nullish(${typeof m})`;
+        const cls = typeof m;
+        let out = `${cls}(keys=${Object.keys(m).join(',') || '-'}`;
+        if (cls === 'object' || cls === 'function') {
+            out += `,def=${typeof m.default}`;
+            if (m.default && typeof m.default === 'object') {
+                out += `,defkeys=${Object.keys(m.default).join(',') || '-'},defdef=${typeof m.default.default}`;
+            }
+        }
+        return out + ')';
+    };
+    let probe = null;
+    try {
+        const { createRequire } = require('node:module');
+        probe = createRequire(__filename)('./v2' + '/index.cjs');
+    } catch (e) {
+        probe = `REQUIRE-ERR: ${e.message}`;
+    }
+    console.error(`[api-v2] static=${describe(staticV2)} chunk=${describe(probe)}`);
+    throw new Error('[api] konnte ./v2 nicht als Router laden.');
+}
+app.use('/api/v2', v1Router);
 
 // Falls die Datei direkt gestartet wird, Server starten
 if (require.main === module) {

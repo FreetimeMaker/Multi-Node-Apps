@@ -40,10 +40,10 @@ router.use('/fport/apps', asRouter(fportApps));
 router.use('/wallora/wallpapers', asRouter(walloraWallpapers));
 router.use('/arcade', asRouter(arcadeRoutes));
 
-router.get('/api/v1', (req, res) => {
+router.get('/api/v2', (req, res) => {
     res.json({
         message: 'Welcome to the All API v1!',
-        version: '1.5.0',
+        version: '2.1.0',
         endpoints: {
             'cross endpoints': {
                 health: '/health',
