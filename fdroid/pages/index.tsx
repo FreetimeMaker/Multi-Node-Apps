@@ -7,8 +7,8 @@ type RepoProps = {
   markup: string;
 };
 
-// Basispfad zu den statischen Dateien in public/repo
-const REPO_BASE = "/repo";
+// Falls keine Umgebungsvariable gesetzt ist, wird standardmäßig /fdroid/repo genutzt
+const REPO_BASE = process.env.NEXT_PUBLIC_REPO_BASE || "/fdroid/repo";
 
 export const getStaticProps: GetStaticProps<RepoProps> = async () => {
   const filePath = path.join(process.cwd(), "public", "repo", "index.html");
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<RepoProps> = async () => {
         .replace(/<head[\s\S]*?<\/head>/gi, "")
         .replace(/<\/?body[^>]*>/gi, "");
 
-      // Pfade für Bilder und Links auf REPO_BASE umschreiben
+      // Alle relativen Bild- und Datei-Pfade für QR-Codes, Icons & Grafiken anpassen
       markup = markup
         .replace(/src=["']\.\/([^"']+)["']/g, `src="${REPO_BASE}/$1"`)
         .replace(/src=["'](?!http|https|\/)([^"']+)["']/g, `src="${REPO_BASE}/$1"`)
@@ -47,8 +47,9 @@ export default function FdroidRepoPage({ markup }: RepoProps) {
         <title>Freetime Repository &mdash; F-Droid</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="index,nofollow" />
-        {/* Hier explizit auf index.css verweisen */}
+        {/* Richtiger CSS-Pfad für das F-Droid Theme */}
         <link rel="stylesheet" href={`${REPO_BASE}/index.css`} />
+        {/* Favicon / App-Icon */}
         <link rel="icon" href={`${REPO_BASE}/icons/icon.png`} type="image/png" />
       </Head>
       <div 
