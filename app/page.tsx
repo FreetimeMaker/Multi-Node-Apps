@@ -188,12 +188,12 @@ export default function HomePage() {
               Donate to me.
             </h2>
           </a>
-          <a className="text-geoweather-next-txt no-underline" href="https://free-time.me/geoweather" title="Look at the Weather anywhere in the Web without needing the App.">
+          <a className="text-geoweather-next-txt no-underline" href="https://geoweather-next.free-time.me" title="Look at the Weather anywhere in the Web without needing the App.">
             <h2>
               Look at the Weather anywhere in the Web without needing the App.
             </h2>
           </a>
-          <a className="text-dashboard-txt no-underline" href="https://free-time.me/dashboard" title="Go to the Dashboard to control everything.">
+          <a className="text-dashboard-txt no-underline" href="https://dashboard.free-time.me" title="Go to the Dashboard to control everything.">
             <h2>
               Go to the Dashboard to control everything.
             </h2>
